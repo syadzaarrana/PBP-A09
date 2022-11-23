@@ -41,11 +41,9 @@ Maka dari itu, sebagai bentuk aksi untuk ikut berkontribusi dalam mencapai Envir
 4. Home & Leaderboard untuk user
     - Home: About us, Daftar Bank sampah (berupa card2), visi misi
     - Leaderboard: berupa tabel yang isinya ada peringkat, nama, domisili, berat sampah total
-5. Form upload deskripsi bank sampah
-    - Judul
-    - Tanggal
-    - Image
-    - Deskripsi
+5. Form upload deskripsi bank sampah & Halaman detail bank sampah
+    - Form upload: judul, tanggal, image, deskripsi
+    - Halaman detail: informasi umum bank sampah, deskripsi-deskripsi yang sudah di-upload
 6. Form nyumbang sampah & history
     - Form: jenis sampah, berat sampah
     - History: nama bank sampah, berat sampah, tanggal penyumbangan, poin
