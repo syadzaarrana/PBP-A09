@@ -27,27 +27,27 @@ Banyaknya jumlah masyarakat dan sampah yang dihasilkan berdampak pada kesejahter
 Maka dari itu, sebagai bentuk aksi untuk ikut berkontribusi dalam mencapai Environment & Climate Sustainability, kami membuat aplikasi Wazzt. Aplikasi ini bertujuan untuk mengatasi permasalahan sampah di Indonesia sekaligus memotivasi warga untuk memilah sampah dengan menyediakan sistem point reward & leaderboard.
 
 ## Modul yang diimplementasikan
-1. Login/Logout (bikin user / bank sampah baru)
+1. Login/Logout (bikin user / bank sampah baru) akan dikerjakan oleh Fauziah Putri Fajrianti
     - Login: username, email, password
     - Register user biasa: nama, username, umur, jenis kelamin, email, password, domisili
     - Register user bank sampah: nama institusi, email, password, domisili, alamat lengkap
-2. Forum
+2. Forum akan dikerjakan oleh Hizkia Sebastian Ginting
     - Daftar Pertanyaan
     - Form pertanyaan
     - Form menjawab
-3. Profile
+3. Profile akan dikerjakan oleh Rathina Shabur
     - Lihat profile
     - Edit profile
-4. Home & Leaderboard untuk user
+4. Home & Leaderboard untuk user akan dikerjakan oleh Made Indri Maharani Natiadewi
     - Home: About us, Daftar Bank sampah (berupa card2), visi misi
     - Leaderboard: berupa tabel yang isinya ada peringkat, nama, domisili, berat sampah total
-5. Form upload deskripsi bank sampah & Halaman detail bank sampah
+5. Form upload deskripsi bank sampah & Halaman detail bank sampah akan dikerjakan oleh Syadza Nayla Arrana Desvianto
     - Form upload: judul, tanggal, image, deskripsi
     - Halaman detail: informasi umum bank sampah, deskripsi-deskripsi yang sudah di-upload
-6. Form nyumbang sampah & history
+6. Form nyumbang sampah & history akan dikerjakan oleh Muhamnad Fariz Eda Andhika
     - Form: jenis sampah, berat sampah
     - History: nama bank sampah, berat sampah, tanggal penyumbangan, poin
-7. Tukar poin
+7. Tukar poin akan dikerjakan oleh Laura Glory Evangeline Sihombing
     - Poin Anda -> berkurang
     - Voucher Anda (daftar voucher)
     - List Voucher
