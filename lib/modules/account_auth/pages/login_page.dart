@@ -155,10 +155,10 @@ class _State extends State<LoginPage> {
                                       // const url = "http://127.0.0.1:8000/authentication/login_flutter/";
 
                                       // Untuk local host Android Emulator
-                                      const url = "http://10.0.2.2:8000/authentication/login_flutter/";
+                                      // const url = "http://10.0.2.2:8000/authentication/login_flutter/";
 
                                       // Untuk railway app
-                                      // const url = "https://wazzt.up.railway.app/authentication/login_flutter/";
+                                      const url = "https://wazzt.up.railway.app/authentication/login_flutter/";
 
                                       final response =
                                           await request.login(url, {
