@@ -8,9 +8,9 @@ class CookieRequest {
   Map<String, String> headers = {};
   Map<String, String> cookies = {};
   final http.Client _client = http.Client();
-  String? username = "";
-  String email = "";
-  bool is_admin = false;
+  // String? username = "";
+  // String email = "";
+  // bool is_admin = false;
   bool is_regular = false;
   bool is_bank = false;
   int id = 0;
@@ -24,7 +24,7 @@ class CookieRequest {
   bool signedUp = false;
   bool initialized = false;
 
-  Future init(BuildContext context) async {
+  Future init() async {
     if (!initialized) {
       local = await SharedPreferences.getInstance();
       String? savedCookies = local.getString("cookies");
@@ -33,9 +33,9 @@ class CookieRequest {
         if (cookies['sessionid'] != null) {
           loggedIn = true;
           headers['cookie'] = _generateCookieHeader();
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Successfully logged in. Welcome back!"),
-          ));
+          // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          //   content: Text("Successfully logged in. Welcome back!"),
+          // ));
         }
       }
     }
@@ -59,10 +59,10 @@ class CookieRequest {
 
     if (response.statusCode == 200) {
 
-      username = (json.decode(response.body)['data']['user']['username'] == Null ?
-        "" : json.decode(response.body)['data']['user']['username']);
-      email = json.decode(response.body)['data']['user']['email'];
-      is_admin = json.decode(response.body)['data']['user']['is_admin'];
+      // username = (json.decode(response.body)['data']['user']['username'] == Null ?
+      //   "" : json.decode(response.body)['data']['user']['username']);
+      // email = json.decode(response.body)['data']['user']['email'];
+      // is_admin = json.decode(response.body)['data']['user']['is_admin'];
       is_regular = json.decode(response.body)['data']['user']['is_regular'];
       is_bank = json.decode(response.body)['data']['user']['is_bank'];
       id = json.decode(response.body)['data']['user']['id'];
@@ -83,7 +83,7 @@ class CookieRequest {
     http.Response response =
     await _client.post(Uri.parse(url), body: data, headers: headers);
 
-    _updateCookie(response);
+    await _updateCookie(response);
 
     if (response.statusCode == 200) {
       //print(json.decode(response.body));
@@ -105,7 +105,7 @@ class CookieRequest {
     }
     http.Response response =
     await _client.get(Uri.parse(url), headers: headers);
-    _updateCookie(response);
+    await _updateCookie(response);
     return json.decode(response.body); // Expects and returns JSON request body
   }
 
@@ -116,11 +116,14 @@ class CookieRequest {
     }
     http.Response response =
     await _client.post(Uri.parse(url), body: data, headers: headers);
-    _updateCookie(response);
+    await _updateCookie(response);
     return json.decode(response.body); // Expects and returns JSON request body
   }
 
-  void _updateCookie(http.Response response) {
+  Future _updateCookie(http.Response response) async {
+
+    await init();
+
     String? allSetCookie = response.headers['set-cookie'];
 
     if (allSetCookie != null) {
@@ -179,9 +182,9 @@ class CookieRequest {
     print(json.decode(response.body));
     if (response.statusCode == 200) {
       loggedIn = false;
-      username = "";
-      email = "";
-      is_admin = false;
+      // username = "";
+      // email = "";
+      // is_admin = false;
       is_regular = false;
       is_bank = false;
       id = 0;

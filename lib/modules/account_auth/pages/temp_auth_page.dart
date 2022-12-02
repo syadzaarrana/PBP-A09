@@ -29,7 +29,7 @@ class _State extends State<AuthPage> {
         setState(() {
           request = _request;
           loggedIn = _request.loggedIn;
-          email = _request.email;
+          // email = _request.email;
           is_bank = _request.is_bank;
           is_regular = _request.is_regular;
           id = _request.id;
