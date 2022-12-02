@@ -327,9 +327,9 @@ class _State extends State<SignupBankPage> {
                                       // const url = "http://127.0.0.1:8000/authentication/signup_bank/";
 
                                       // Untuk local host Android Emulator
-                                      const url = "http://10.0.2.2:8000/authentication/signup_bank/";
+                                      // const url = "http://10.0.2.2:8000/authentication/signup_bank/";
 
-                                      // const url = "https://wazzt.up.railway.app/authentication/signup_bank/";
+                                      const url = "https://wazzt.up.railway.app/authentication/signup_bank/";
 
                                       final response =
                                       await request.signup(url, {

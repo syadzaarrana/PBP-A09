@@ -422,9 +422,9 @@ class _State extends State<SignupRegPage> {
                                       // const url = "http://127.0.0.1:8000/authentication/signup_reg/";
 
                                       // Untuk local host Android Emulator
-                                      const url = "http://10.0.2.2:8000/authentication/signup_reg/";
+                                      // const url = "http://10.0.2.2:8000/authentication/signup_reg/";
 
-                                      // const url = "https://wazzt.up.railway.app/authentication/signup_reg/";
+                                      const url = "https://wazzt.up.railway.app/authentication/signup_reg/";
 
                                       final response =
                                           await request.signup(url, {
