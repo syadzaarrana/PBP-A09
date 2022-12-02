@@ -11,8 +11,8 @@
 7. Syadza Nayla Arrana Desvianto - 2106634055
 
 
-## Link App Heroku
-Link: https://wazzt-update.herokuapp.com/
+## Link App Railway
+Link: https://wazzt.up.railway.app/
 
 ## Penjelasan Aplikasi
 ### Judul Aplikasi:	
