@@ -68,11 +68,17 @@ Drawer buildDrawer(BuildContext context) {
           //       Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListPage()),);
           //     }
         ),
-        ListTile(
+        LListTile(
           title: const Text('Riwayat'),
-          //     onTap: () {
-          //       Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListPage()),);
-          //     }
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const HistoryPage()),);
+              }
+        ),
+        ListTile(
+            title: const Text('Donasi (Temporary)'),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const BuatSumbanganPage()),);
+            }
         ),
       ],
     ),
