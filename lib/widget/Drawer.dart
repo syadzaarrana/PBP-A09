@@ -7,7 +7,8 @@ import '../modules/account_auth/utils/cookie_request.dart';
 import '../modules/account_auth/utils/logout.dart';
 import '../modules/leaderboard/leaderboard.dart';
 import '../modules/profile/showProfilePage.dart';
-
+import '../modules/sumbangan/sumbangan.dart';
+import '../modules/sumbangan/history.dart';
 
 Drawer buildDrawer(BuildContext context) {
   final _request = Provider.of<CookieRequest>(context, listen: false);
@@ -68,7 +69,7 @@ Drawer buildDrawer(BuildContext context) {
           //       Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListPage()),);
           //     }
         ),
-        LListTile(
+        ListTile(
           title: const Text('Riwayat'),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const HistoryPage()),);
