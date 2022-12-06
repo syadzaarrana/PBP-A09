@@ -1,12 +1,20 @@
 // import dari Flutter
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wazzt/modules/account_auth/pages/signup_page_bank.dart';
 import '../../../widget/Drawer.dart';
+import '../account_auth/utils/cookie_request.dart';
+
+bool isInRange(String str) {
+  return (int.parse(str) >= 1) && (int.parse(str) <= 100);
+}
+
 
 class BuatSumbanganPage extends StatefulWidget {
   const BuatSumbanganPage({super.key});
-
   final String title = 'Flutter Demo Home Page';
 
   @override
@@ -19,26 +27,30 @@ class BuatSumbanganPage extends StatefulWidget {
 
 class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController beratSampahField = TextEditingController(text: ""); // (int)
-  String jenisSampahField = "";
+  TextEditingController _beratSampahField = TextEditingController(text: ""); // (int)
+  String? jenis;
 
-  Future<void> submit(BuildContext context, String idUser) async {
-    String idPemilik = idUser;
+  Future<void> submit(BuildContext context, int idPemilik) async {
+
     final response = await http.post(
         Uri.parse(
-            "https://wazzt.up.railway.app/buat_sumbangan/flutter/" ),
+            "http://127.0.0.1:8000/sumbang/flutter/"),
+            //"https://wazzt.up.railway.app/sumbang/flutter/" ),
+
         headers: <String, String>{'Content-Type': 'application/json'},
         body: jsonEncode(<String, dynamic>{
-          'berat': beratSampahField.text,
-          'jenis-sampah': int.parse(idPemilik),
-          'donatur' : 1, //widget.id,
-          'bank_sampah': 2 // dari syadza harusnya widget.fields["title"],
+          'berat': _beratSampahField.text,
+          'jenis': jenis,
+          'donatur' : 3, // idPemilik,
+          'bank_sampah': 4 // dari syadza harusnya widget.fields["title"],
         }));
     print(response.body);
   }
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+    int idPemilik = request.id;
     return Scaffold(
       // drawer: NavigationDrawerWidget(), belum
         appBar: AppBar(
@@ -50,92 +62,185 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                 padding: EdgeInsets.all(20.0),
                 child: Column(
                     children:[
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            controller: beratSampahField,
-                            decoration: const InputDecoration(
-                              hintText: "Ex: 5",
-                              labelText: "Masukkan Jumlah Berat Sampah (Kg)",
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(250, 250, 250, 0.95),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: TextFormField(
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          keyboardType: TextInputType.number,
+                          controller: _beratSampahField,
+                          decoration: InputDecoration(
+                            labelText: 'Berat Sampah (Kg)',
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                              fontFamily: 'AvenirLight'),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                              BorderSide(
+                                color: Colors.green),
+                              ),
+                            border: UnderlineInputBorder(
+                              borderSide:
+                                BorderSide(color: Colors.lightGreen),
                             ),
-                            validator: (value){
-                              if (value?.isEmpty ?? true){
-                                return "Berat sampah tidak boleh kosong";
-                              }
-                              return null;
-                            },
-                          )
-                      ),
-                      RadioListTile(
-                        title: Text("Karung"),
-                        value: "karung",
-                        groupValue: "jenis-sampah",
-                        onChanged: (value){
-                          setState(() {
-                            jenisSampahField = "karung";
-                          });
-                        },
-                      ),
-                      RadioListTile(
-                        title: Text("ban"),
-                        value: "ban",
-                        groupValue: "jenis-sampah",
-                        onChanged: (value){
-                          setState(() {
-                            jenisSampahField = "ban";
-                          });
-                        },
-                      ),
-                      RadioListTile(
-                        title: Text("ember"),
-                        value: "ember",
-                        groupValue: "jenis-sampah",
-                        onChanged: (value){
-                          setState(() {
-                            jenisSampahField = "ember";
-                          });
-                        },
-                      ),
-                      RadioListTile(
-                        title: Text("plastik"),
-                        value: "plastik",
-                        groupValue: "jenis-sampah",
-                        onChanged: (value){
-                          setState(() {
-                            jenisSampahField = "plastik";
-                          });
-                        },
-                      ),
-                      RadioListTile(
-                        title: Text("logam"),
-                        value: "logam",
-                        groupValue: "jenis-sampah",
-                        onChanged: (value){
-                          setState(() {
-                            jenisSampahField = "logam";
-                          });
-                        },
-                      ),
-                      RadioListTile(
-                        title: Text("botol"),
-                        value: "botol",
-                        groupValue: "jenis-sampah",
-                        onChanged: (value){
-                          setState(() {
-                            jenisSampahField = "botol";
-                          });
-                        },
+                            hintText: 'Ex: 5',
+                            // prexixIcon : Icon(Icons.account_circle),
+                            hintStyle: TextStyle(
+                              color: Color.fromRGBO(200, 200, 200, 1),
+                            ),
+                          ),
+                          autovalidateMode:
+                            AutovalidateMode.onUserInteraction,
+                          validator: (value){
+                            if (value == null || value.isEmpty){
+                              return "Silakan masuki berat";
+                            }
+                            else if(!isInRange(value)){
+                              return 'Berat di antara 1-100 Kg';
+                            }
+                          },
+                        ),
                       ),
 
-                      TextButton(
-                        child: Text("Submit", style: TextStyle(color: Colors.white),),
-                        onPressed: () {
-                          if (_formKey.currentState?.validate() ?? true) {
-                            // String id = widget.id;
-                            // showConfirmDialog(context, id);
-                          }
-                        },
+                      SizedBox(height: 20,),
+                      Column(
+                        children: [
+                          const Text("Jenis Sampah: ",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),),
+                          RadioListTile(
+                            dense: true,
+                            title: Text("Karung",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Color.fromRGBO(90,90,90,1),
+                              ),
+                            ),
+                            value: "karung",
+                            groupValue: jenis,
+                            onChanged: (value) {
+                              setState(() {
+                                jenis = value.toString();
+                              });
+                            },
+                          ),
+                          RadioListTile(
+                            dense: true,
+                            title: Text("Ban",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Color.fromRGBO(90,90,90,1),
+                              ),
+                            ),
+                            value: "ban",
+                            groupValue: jenis,
+                            onChanged: (value) {
+                              setState(() {
+                                jenis = value.toString();
+                              });
+                            },
+                          ),RadioListTile(
+                            dense: true,
+                            title: Text("Ember",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Color.fromRGBO(90,90,90,1),
+                              ),
+                            ),
+                            value: "ember",
+                            groupValue: jenis,
+                            onChanged: (value) {
+                              setState(() {
+                                jenis = value.toString();
+                              });
+                            },
+                          ),RadioListTile(
+                            dense: true,
+                            title: Text("Plastik",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Color.fromRGBO(90,90,90,1),
+                              ),
+                            ),
+                            value: "plastik",
+                            groupValue: jenis,
+                            onChanged: (value) {
+                              setState(() {
+                                jenis = value.toString();
+                              });
+                            },
+                          ),RadioListTile(
+                            dense: true,
+                            title: Text("Logam",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Color.fromRGBO(90,90,90,1),
+                              ),
+                            ),
+                            value: "logam",
+                            groupValue: jenis,
+                            onChanged: (value) {
+                              setState(() {
+                                jenis = value.toString();
+                              });
+                            },
+                          ),RadioListTile(
+                            dense: true,
+                            title: Text("Botol",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Color.fromRGBO(90,90,90,1),
+                              ),
+                            ),
+                            value: "botol",
+                            groupValue: jenis,
+                            onChanged: (value) {
+                              setState(() {
+                                jenis = value.toString();
+                              });
+                            },
+                          ),
+                        ],
                       ),
+
+                      Container(
+                          width: double.infinity,
+                          child: TextButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.green),
+                              foregroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                            ),
+                            onPressed: () async {
+                              if (_formKey.currentState?.validate() ?? true) {
+
+                                submit(context, idPemilik);
+                                print("valid");
+
+                              } else {
+                                print("tidak valid");
+                              }
+                            },
+                            child: Text("Donate!"),
+                          )
+                      )
+
+                      // TextButton(
+                      //   child: Text("Submit", style: TextStyle(color: Colors.white),),
+                      //   onPressed: () {
+                      //     if (_formKey.currentState?.validate() ?? true) {
+                      //       int id = request.id;
+                      //       // showConfirmDialog(context, id);
+                      //     }
+                      //   },
+                      // ),
 
                     ]
                 )
@@ -156,7 +261,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
     Widget continueButton = TextButton(
       child: Text("Iya"),
       onPressed: () {
-        submit(context, idUser);
+        submit(context, 4);
         // Navigator.push(context,
         //     MaterialPageRoute(builder: (context) => BuatProjectPage(idUser)));
         showAlertDialog(context, idUser);
