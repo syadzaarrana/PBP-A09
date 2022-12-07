@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<List<Donasi>> fetchHistory(int id) async {
+  // var url = Uri.parse('http://127.0.0.1:8000/sumbang/history/6/') ; for local
   var url = Uri.parse('https://wazzt.up.railway.app/sumbang/history/' + id.toString() + "/") ;
   print(url);
   var response = await http.get(
