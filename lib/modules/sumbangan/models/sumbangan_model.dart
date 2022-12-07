@@ -11,12 +11,12 @@ String DonasiToJson(List<Donasi> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Donasi {
-  String donatur;
-  String date;
-  String jenis;
-  String berat;
-  int poin;
-  String bank_sampah;
+  dynamic donatur;
+  dynamic date;
+  dynamic jenis;
+  dynamic berat;
+  dynamic poin;
+  dynamic bank_sampah;
 
 
   Donasi({

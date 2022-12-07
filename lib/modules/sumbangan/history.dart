@@ -89,19 +89,19 @@ class MyData extends DataTableSource {
     return DataRow(
       cells: [
         DataCell(
-          Text(dataList[index].donatur),
+          Text(dataList[index].date.toString()),
         ),
         DataCell(
-          Text(dataList[index].date),
+          Text(dataList[index].bank_sampah),
         ),
         DataCell(
           Text(dataList[index].jenis),
         ),
         DataCell(
-          Text(dataList[index].poin.toString()),
+          Text(dataList[index].berat.toString()),
         ),
         DataCell(
-          Text(dataList[index].bank_sampah),
+          Text(dataList[index].poin.toString()),
         ),
       ],
     );

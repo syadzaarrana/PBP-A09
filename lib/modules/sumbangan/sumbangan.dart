@@ -35,13 +35,13 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
     final response = await http.post(
         Uri.parse(
             "http://127.0.0.1:8000/sumbang/flutter/"),
-            //"https://wazzt.up.railway.app/sumbang/flutter/" ),
+            // "https://wazzt.up.railway.app/sumbang/flutter/" ),
 
         headers: <String, String>{'Content-Type': 'application/json'},
         body: jsonEncode(<String, dynamic>{
           'berat': _beratSampahField.text,
           'jenis': jenis,
-          'donatur' : 3, // idPemilik,
+          'donatur' : 6, // idPemilik, cookie?
           'bank_sampah': 4 // dari syadza harusnya widget.fields["title"],
         }));
     print(response.body);
