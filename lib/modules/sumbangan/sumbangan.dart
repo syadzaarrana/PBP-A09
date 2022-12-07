@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wazzt/modules/sumbangan/history.dart';
 import 'package:wazzt/modules/account_auth/pages/signup_page_bank.dart';
 import '../../../widget/Drawer.dart';
 import '../account_auth/utils/cookie_request.dart';
@@ -221,7 +222,8 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                             onPressed: () async {
                               if (_formKey.currentState?.validate() ?? true) {
 
-                                submit(context, idPemilik);
+                                showConfirmDialog(context, idPemilik);
+                                // submit(context, idPemilik);
                                 print("valid");
 
                               } else {
@@ -231,17 +233,6 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                             child: Text("Donate!"),
                           )
                       )
-
-                      // TextButton(
-                      //   child: Text("Submit", style: TextStyle(color: Colors.white),),
-                      //   onPressed: () {
-                      //     if (_formKey.currentState?.validate() ?? true) {
-                      //       int id = request.id;
-                      //       // showConfirmDialog(context, id);
-                      //     }
-                      //   },
-                      // ),
-
                     ]
                 )
             )
@@ -249,7 +240,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
     );
   }
 
-  showConfirmDialog(BuildContext context, String idUser) {
+  showConfirmDialog(BuildContext context, int idUser) {
     // set up the buttons
     Widget cancelButton = TextButton(
       child: Text("Tidak jadi"),
@@ -261,17 +252,15 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
     Widget continueButton = TextButton(
       child: Text("Iya"),
       onPressed: () {
-        submit(context, 4);
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => BuatProjectPage(idUser)));
-        showAlertDialog(context, idUser);
+        submit(context, idUser);
+        showAlertDialog(context);
       },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("AlertDialog"),
-      content: Text("Apakah Anda Yakin ini Project yang Anda ingin buat?"),
+      content: Text("Apakah yakin ini donasi yang Anda ingin buat?"),
       actions: [
         cancelButton,
         continueButton,
@@ -287,20 +276,20 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
     );
   }
 
-  showAlertDialog(BuildContext context, String idUser) {
+  showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => BuatProjectPage(idUser)));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => HistoryPage()));
       },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Selamat!"),
-      content: Text("Proyek Berhasil Dibuat!"),
+      content: Text("Donasi Berhasil Dibuat!"),
       actions: [
         okButton,
       ],
