@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:provider/provider.dart';
-import 'package:wazzt/modules/account_auth/pages/temp_auth_page.dart';
 
 import '../utils/city_list.dart';
 import '../utils/cookie_request.dart';

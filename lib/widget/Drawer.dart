@@ -17,27 +17,7 @@ Drawer buildDrawer(BuildContext context) {
     child: Column(
       children: [
         // Menambahkan clickable menu
-        _request.loggedIn
-            ? ListTile(
-          title: const Text('Logout'),
-          onTap: () {
-            logout(context, _request);
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyHomePage(title: ""),
-                ));
-          },
-        )
-            : ListTile(
-            title: const Text('Login'),
-            onTap: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginPage(),
-                  ));
-            }),
+
         ListTile(
             title: const Text('Wazzt'),
             onTap: () {
@@ -81,6 +61,22 @@ Drawer buildDrawer(BuildContext context) {
               Navigator.push(context, MaterialPageRoute(builder: (context) => const BuatSumbanganPage()),);
             }
         ),
+        _request.loggedIn
+            ? ListTile(
+          title: const Text('Logout'),
+          onTap: () {
+            logout(context, _request);
+          },
+        )
+            : ListTile(
+            title: const Text('Login'),
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ));
+            }),
       ],
     ),
   );

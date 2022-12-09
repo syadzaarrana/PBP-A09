@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
 import 'cookie_request.dart';
 
 // final request = Provider.of<CookieRequest>(context, listen: false);
@@ -16,6 +17,11 @@ Future<void> logout(BuildContext context, CookieRequest request) async {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text("Successfully logged out!"),
     ));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MyHomePage(title: ""),
+        ));
   } else {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text("An error occured, please try again."),
