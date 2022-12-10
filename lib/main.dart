@@ -10,7 +10,6 @@ import 'modules/leaderboard/models/bank_model.dart';
 import 'modules/description/pages/description.dart';
 import 'dart:convert';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -88,50 +87,46 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Daftar Bank Sampah'),
-        ),
-        drawer: buildDrawer(context),
-
-        body: FutureBuilder(
-            future: fetchToDo(),
-            builder: (context, AsyncSnapshot snapshot) {
-              if (snapshot.data == null) {
-                return const Center(child: CircularProgressIndicator());
+      appBar: AppBar(
+        title: const Text('Daftar Bank Sampah'),
+      ),
+      drawer: buildDrawer(context),
+      body: FutureBuilder(
+          future: fetchToDo(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.data == null) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              if (!snapshot.hasData) {
+                return Column(
+                  children: const [
+                    Text(
+                      "Belum ada bank sampah",
+                      style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                    ),
+                    SizedBox(height: 8),
+                  ],
+                );
               } else {
-                if (!snapshot.hasData) {
-                  return Column(
-                    children: const [
-                      Text(
-                        "Belum ada bank sampah",
-                        style: TextStyle(
-                            color: Color(0xff59A5D8), fontSize: 20),),
-                      SizedBox(height: 8),
-                    ],
-                  );
-                } else {
-                  return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (_, index) =>
-                          ListTile(
-                              title: GestureDetector(
-                                child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 12),
-                                  padding: const EdgeInsets.all(20.0),
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            color: Colors.black,
-                                            blurRadius: 2.0)
-                                      ]),
-
-                                  child: Column(
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (_, index) => ListTile(
+                        title: GestureDetector(
+                            child: Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                padding: const EdgeInsets.all(20.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.black, blurRadius: 2.0)
+                                    ]),
+                                child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "${snapshot.data![index].name}",
@@ -147,7 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-
                                       Text(
                                         "${snapshot.data![index].address}",
                                         style: const TextStyle(
@@ -156,50 +150,72 @@ class _MyHomePageState extends State<MyHomePage> {
                                         ),
                                       ),
                                       TextButton(
-                                          child: const Text("See description",
+                                          child: const Text(
+                                            "See description",
                                             style: TextStyle(
                                                 color: Colors.cyanAccent),
                                           ),
                                           style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty
-                                                .all(Colors.white12),
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.white12),
                                           ),
                                           onPressed: () {
-                                            Navigator.pushReplacement(context,
-                                              MaterialPageRoute(builder: (
-                                                  context) => const DescriptionPage()),
-                                            );
-                                          }
-                                      ),
-                                  Visibility(
-                                    visible: request.is_bank ? true : false,
-                                    child : Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        TextButton(
-                                            child: const Text("Add description",
-                                              style: TextStyle(
-                                                  color: Colors.cyanAccent),
-                                            ),
-                                            style: ButtonStyle(
-                                              backgroundColor: MaterialStateProperty
-                                                  .all(Colors.white12),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pushReplacement(context,
-                                                MaterialPageRoute(builder: (
-                                                    context) => const MyFormPage()),
+                                            if (snapshot.hasData) {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DescriptionPage(
+                                                          id: snapshot
+                                                              .data![index].pk,
+                                                          name: snapshot
+                                                              .data![index]
+                                                              .name,
+                                                          city: snapshot
+                                                              .data![index]
+                                                              .city,
+                                                          email: snapshot
+                                                              .data![index]
+                                                              .email,
+                                                        )),
                                               );
                                             }
+                                          }),
+                                      Visibility(
+                                        visible: request.is_bank ? true : false,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            TextButton(
+                                                child: const Text(
+                                                  "Add description",
+                                                  style: TextStyle(
+                                                      color: Colors.cyanAccent),
+                                                ),
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.white12),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const MyFormPage()),
+                                                  );
+                                                }),
+                                          ],
                                         ),
-                                    ],
-                                  ),
-                                ),])))));
-                }
+                                      ),
+                                    ])))));
               }
-            }),
+            }
+          }),
     );
   }
 }
