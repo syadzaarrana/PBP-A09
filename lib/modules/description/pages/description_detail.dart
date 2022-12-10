@@ -21,6 +21,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.green.shade50,
         appBar: AppBar(
           title: const Text('Description Detail'),
         ),

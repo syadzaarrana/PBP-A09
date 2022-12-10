@@ -206,7 +206,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const MyFormPage()),
+                                                            UploadForm(
+                                                              id: snapshot
+                                                                  .data![index]
+                                                                  .pk,
+                                                            )),
                                                   );
                                                 }),
                                           ],

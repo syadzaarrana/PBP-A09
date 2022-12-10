@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:file_picker/file_picker.dart';
 
-class MyFormPage extends StatefulWidget {
-  const MyFormPage({super.key});
+class UploadForm extends StatefulWidget {
+  UploadForm({super.key, required this.id});
+
+  final int id;
 
   @override
-  State<MyFormPage> createState() => _MyFormPageState();
+  State<UploadForm> createState() => _MyFormPageState();
 }
 
-class _MyFormPageState extends State<MyFormPage> {
+class _MyFormPageState extends State<UploadForm> {
   final _formKey = GlobalKey<FormState>();
 
   String title = "";
@@ -39,15 +43,32 @@ class _MyFormPageState extends State<MyFormPage> {
 
     setState(() {
       imageFile = File(result!.files.single.path!);
+      image = result.files.single.path!;
       imagePicker.text = result.files.single.name;
     });
   }
 
-  upload() async {}
+  Future<void> upload() async {
+    Uint8List imagebytes = await imageFile!.readAsBytes();
+    String base64Image = base64.encode(imagebytes);
+
+    final response = await http.post(
+        Uri.parse('https://wazzt.up.railway.app/descriptions/flutterupload/'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: jsonEncode(<String, dynamic>{
+          'waste_bank': widget.id,
+          'title': title,
+          'date': datePicker.text,
+          'image': base64Image,
+          'image_name': imagePicker.text,
+          'description': description
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green.shade50,
       appBar: AppBar(
         title: const Text('Upload Description'),
       ),
@@ -187,53 +208,55 @@ class _MyFormPageState extends State<MyFormPage> {
                     },
                   ),
                 ),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  ),
-                  onPressed: () {
-                    upload(); // Will soon be implemented
-                    if (_formKey.currentState!.validate()) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 15,
-                            child: ListView(
-                              padding:
-                                  const EdgeInsets.only(top: 20, bottom: 20),
-                              shrinkWrap: true,
-                              children: <Widget>[
-                                const Center(child: Text('Uploaded Data')),
-                                const SizedBox(height: 20),
-                                Column(
-                                  children: [
-                                    Text('Title: $title'),
-                                    Text('Date: ${datePicker.text}'),
-                                    Text('Image: ${imagePicker.text}'),
-                                    Text('Description: $description'),
-                                  ],
-                                ),
-                                const SizedBox(height: 7),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Kembali'),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    }
-                  },
-                  child: const Text(
-                    "Simpan",
-                    style: TextStyle(color: Colors.white),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(45)),
+                    onPressed: () {
+                      upload();
+                      if (_formKey.currentState!.validate()) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              elevation: 15,
+                              child: ListView(
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 20),
+                                shrinkWrap: true,
+                                children: <Widget>[
+                                  const Center(child: Text('Uploaded Data')),
+                                  const SizedBox(height: 20),
+                                  Column(
+                                    children: [
+                                      Text('Title: $title'),
+                                      Text('Date: ${datePicker.text}'),
+                                      Text('Image: ${imagePicker.text}'),
+                                      Text('Description: $description'),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 7),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Kembali'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: const Text(
+                      "Upload",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
