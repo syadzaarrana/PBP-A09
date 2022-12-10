@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wazzt/modules/description/utils/fetch.dart';
 import 'package:wazzt/modules/description/pages/description_detail.dart';
+import 'package:wazzt/modules/sumbangan/sumbangan.dart';
 
 class DescriptionPage extends StatefulWidget {
   DescriptionPage(
@@ -54,7 +55,14 @@ class _DescriptionPageState extends State<DescriptionPage> {
                       children: <Widget>[
                         TextButton(
                           child: const Text('Donate Waste'),
-                          onPressed: () {/* ... */},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BuatSumbanganPage(
+                                      id_bank_sampah: widget.id),
+                                ));
+                          },
                         ),
                         const SizedBox(width: 8),
                       ],

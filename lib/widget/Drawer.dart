@@ -8,7 +8,6 @@ import '../modules/account_auth/utils/cookie_request.dart';
 import '../modules/account_auth/utils/logout.dart';
 import '../modules/leaderboard/leaderboard.dart';
 import '../modules/profile/showProfilePage.dart';
-import '../modules/sumbangan/sumbangan.dart';
 import '../modules/sumbangan/history.dart';
 
 Drawer buildDrawer(BuildContext context) {
@@ -68,11 +67,6 @@ Drawer buildDrawer(BuildContext context) {
                 context,
                 MaterialPageRoute(builder: (context) => const HistoryPage()),
               );
-            }),
-        ListTile(
-            title: const Text('Donasi (Temporary)'),
-            onTap: () {
-              //Navigator.push(context, MaterialPageRoute(builder: (context) => const BuatSumbanganPage()),);
             }),
         _request.loggedIn
             ? ListTile(

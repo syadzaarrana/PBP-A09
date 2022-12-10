@@ -182,6 +182,28 @@ class _MyHomePageState extends State<MyHomePage> {
                                               );
                                             }
                                           }),
+                                      TextButton(
+                                          child: const Text(
+                                            "Add description",
+                                            style: TextStyle(
+                                                color: Colors.cyanAccent),
+                                          ),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.white12),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      UploadForm(
+                                                        id: snapshot
+                                                            .data![index].pk,
+                                                      )),
+                                            );
+                                          }),
                                       Visibility(
                                         visible: request.is_bank ? true : false,
                                         child: Column(
