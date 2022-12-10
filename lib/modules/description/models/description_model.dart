@@ -23,7 +23,7 @@ class Description {
   int id;
   int wasteBankId;
   String title;
-  DateTime date;
+  String date;
   String image;
   String description;
 
@@ -31,7 +31,7 @@ class Description {
         id: json["id"],
         wasteBankId: json["waste_bank_id"],
         title: json["title"],
-        date: DateTime.parse(json["date"]),
+        date: json["date"],
         image: json["image"],
         description: json["description"],
       );
@@ -40,8 +40,7 @@ class Description {
         "id": id,
         "waste_bank_id": wasteBankId,
         "title": title,
-        "date":
-            "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+        "date": date,
         "image": image,
         "description": description,
       };
