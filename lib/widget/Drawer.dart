@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wazzt/main.dart';
+import 'package:wazzt/modules/forum/forum.dart';
 
 import '../modules/account_auth/pages/login_page.dart';
 import '../modules/account_auth/utils/cookie_request.dart';
@@ -29,11 +30,13 @@ Drawer buildDrawer(BuildContext context) {
                   ));
             }),
         ListTile(
-          title: const Text('Forum'),
-          //     onTap: () {
-          //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyFormPage()),);
-          //     }
-        ),
+            title: const Text('Forum'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ForumPage()),
+              );
+            }),
         ListTile(
             title: const Text('Profile'),
             onTap: () {
