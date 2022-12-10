@@ -39,6 +39,9 @@ class CookieRequest {
   }
 
   Future<dynamic> login(String url, dynamic data) async {
+
+    signedUp = false;
+
     if (kIsWeb) {
       dynamic c = _client;
       c.withCredentials = true;
@@ -62,6 +65,9 @@ class CookieRequest {
   }
 
   Future<dynamic> signup(String url, dynamic data) async {
+
+    signedUp = false;
+
     if (kIsWeb) {
       dynamic c = _client;
       c.withCredentials = true;
