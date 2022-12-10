@@ -14,6 +14,7 @@ Drawer buildDrawer(BuildContext context) {
   final _request = Provider.of<CookieRequest>(context, listen: false);
 
   return Drawer(
+    backgroundColor: Color.fromARGB(255, 177, 237, 200),
     child: Column(
       children: [
         // Menambahkan clickable menu
@@ -21,10 +22,12 @@ Drawer buildDrawer(BuildContext context) {
         ListTile(
             title: const Text('Wazzt'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: ""),
-              ));
-            }
-        ),
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyHomePage(title: ""),
+                  ));
+            }),
         ListTile(
           title: const Text('Forum'),
           //     onTap: () {
@@ -32,17 +35,23 @@ Drawer buildDrawer(BuildContext context) {
           //     }
         ),
         ListTile(
-          title: const Text('Profile'),
-              onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ShowProfilePage()),);
-              }
-        ),
+            title: const Text('Profile'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ShowProfilePage()),
+              );
+            }),
         ListTile(
             title: const Text('Leaderboard'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const LeaderboardPage()),);
-            }
-        ),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const LeaderboardPage()),
+              );
+            }),
         ListTile(
           title: const Text('Tukar Poin'),
           //     onTap: () {
@@ -50,33 +59,34 @@ Drawer buildDrawer(BuildContext context) {
           //     }
         ),
         ListTile(
-          title: const Text('Riwayat'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const HistoryPage()),);
-              }
-        ),
+            title: const Text('Riwayat'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HistoryPage()),
+              );
+            }),
         ListTile(
             title: const Text('Donasi (Temporary)'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const BuatSumbanganPage()),);
-            }
-        ),
+              //Navigator.push(context, MaterialPageRoute(builder: (context) => const BuatSumbanganPage()),);
+            }),
         _request.loggedIn
             ? ListTile(
-          title: const Text('Logout'),
-          onTap: () {
-            logout(context, _request);
-          },
-        )
+                title: const Text('Logout'),
+                onTap: () {
+                  logout(context, _request);
+                },
+              )
             : ListTile(
-            title: const Text('Login'),
-            onTap: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginPage(),
-                  ));
-            }),
+                title: const Text('Login'),
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ));
+                }),
       ],
     ),
   );
