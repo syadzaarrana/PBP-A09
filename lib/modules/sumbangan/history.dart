@@ -35,12 +35,15 @@ class _HistoryPageState extends State<HistoryPage> {
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                if (!snapshot.hasData) {
+                if (snapshot.data!.length == 0) {
                   return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text(
                         "Belum ada donasi",
-                        style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20),),
                       SizedBox(height: 8),
                     ],
                   );
