@@ -15,8 +15,8 @@ bool isInRange(String str) {
 
 
 class BuatSumbanganPage extends StatefulWidget {
-  const BuatSumbanganPage({super.key});
-  final String title = 'Flutter Demo Home Page';
+  const BuatSumbanganPage({super.key, required this.id_bank_sampah});
+  final int id_bank_sampah;
 
   @override
   State<BuatSumbanganPage> createState() => _BuatSumbanganPageState();
@@ -32,7 +32,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
   String? jenis;
 
   Future<void> submit(BuildContext context, int idPemilik) async {
-
+    print(idPemilik);
     final response = await http.post(
         Uri.parse(
             "http://127.0.0.1:8000/sumbang/flutter/"),
@@ -42,8 +42,8 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
         body: jsonEncode(<String, dynamic>{
           'berat': _beratSampahField.text,
           'jenis': jenis,
-          'donatur' : 6, // idPemilik, cookie?
-          'bank_sampah': 4 // dari syadza harusnya widget.fields["title"],
+          'donatur' : idPemilik,
+          'bank_sampah': widget.id_bank_sampah,
         }));
     print(response.body);
   }
@@ -243,7 +243,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
   showConfirmDialog(BuildContext context, int idUser) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text("Tidak jadi"),
+      child: Text("Tidak"),
       onPressed: () {
         Navigator.of(context).pop();
       },
@@ -259,7 +259,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("AlertDialog"),
+      title: Text("Konfirmasi"),
       content: Text("Apakah yakin ini donasi yang Anda ingin buat?"),
       actions: [
         cancelButton,
