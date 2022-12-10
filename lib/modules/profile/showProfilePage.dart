@@ -7,33 +7,51 @@ import 'dart:core';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'dart:convert';
-import 'dart:async';
-import 'dart:core';
-import 'package:http/http.dart' as http;
-
 import 'editProfilePage.dart';
+
+Future<User> fetchUser(String ID) async {
+  String id = ID;
+  //var url = 'http://127.0.0.1:8000/buat_profile/' + id;
+  var url = "https://wazzt.up.railway.app/for_profile/show_profile/" + id;
+  try {
+    final response = await http.get(Uri.parse(url));
+    print(response);
+    print("ABC");
+    print(response.body);
+    print(url);
+    ;
+    Map<String, dynamic> data = jsonDecode(response.body);
+    print("ABC");
+    print(data);
+
+    return User.fromJson(jsonDecode(response.body));
+  } catch (error) {
+    print("error");
+    rethrow;
+  }
+}
 
 class User {
   String name = "";
   String username = "";
   String email = "";
-  String age = "";
+  int age = 0;
   String gender = "";
   String city = "";
-  String address = "";
+  // String address = "";
   String id = "";
+  bool? is_regular;
 
-  User({
-    required this.name,
-    required this.username,
-    required this.email,
-    required this.age,
-    required this.gender,
-    required this.city,
-    required this.address,
-    required this.id,
-  });
+  User(
+      {required this.name,
+      required this.username,
+      required this.email,
+      required this.age,
+      required this.gender,
+      required this.city,
+      // required this.address,
+      required this.id,
+      required this.is_regular});
 
   factory User.fromJson(Map<String, dynamic> data) {
     return User(
@@ -43,25 +61,35 @@ class User {
       age: data["data"]["data"]["age"],
       gender: data["data"]["data"]["gender"],
       city: data['data']['data']["city"],
-      address: data['data']['data']["address"],
+      // address: data['data']['data']["address"],
       id: data['data']['data']["id"],
+      is_regular: data["data"]["data"]["is_regular"],
     );
   }
 }
 
 class ShowProfilePage extends StatefulWidget {
-  // final String id;
-  // ShowProfilePage(this.id) : super(key: null);
+  final String id;
+  ShowProfilePage(this.id) : super(key: null);
 
-  const ShowProfilePage({super.key});
+  // const ShowProfilePage({super.key});
 
   @override
-  State<ShowProfilePage> createState() => _ShowProfilePageState();
+  // State<ShowProfilePage> createState() => _ShowProfilePageState();
+  _ShowProfilePageState createState() => _ShowProfilePageState();
 }
 
 class _ShowProfilePageState extends State<ShowProfilePage> {
   @override
   Widget build(BuildContext context) {
+    // print(name + "ABC");
+    // print(username);
+    // print(email);
+    // print(age);
+    // print(gender);
+    // print(city);
+    String id = widget.id;
+
     return MaterialApp(
       home: Scaffold(
         // drawer: myDrawer();
@@ -74,14 +102,15 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
               radius: 50.0,
               backgroundImage: AssetImage('assets/img/user_icon.png'),
             ),
-            Text(
-              'Name',
-              style: TextStyle(
-                  fontFamily: 'Pacifico',
-                  fontSize: 40.0,
-                  color: Colors.teal,
-                  fontWeight: FontWeight.bold),
-            ),
+            // Text(
+            //   'Name',
+            //   style: TextStyle(
+            //       fontFamily: 'Pacifico',
+            //       fontSize: 40.0,
+            //       color: Colors.teal,
+            //       fontWeight: FontWeight.bold),
+            // ),
+
             Text(
               'Username',
               style: TextStyle(
@@ -150,13 +179,13 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                   Icons.home,
                   color: Colors.teal,
                 ),
-                title: Text(
-                  'Domisili',
-                  style: TextStyle(
-                      color: Colors.teal,
-                      fontFamily: 'Source Sans Pro',
-                      fontSize: 20.0),
-                ),
+                // title: Text(
+                //   'Domisili',
+                //   style: TextStyle(
+                //       color: Colors.teal,
+                //       fontFamily: 'Source Sans Pro',
+                //       fontSize: 20.0),
+                // ),
               ),
             ),
             Container(
@@ -173,10 +202,10 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                 minWidth: double.infinity,
                 height: 60,
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushReplacement(MaterialPageRoute(builder: (context) {
-                    return EditProfilePage();
-                  }));
+                  // Navigator.of(context)
+                  //     .pushReplacement(MaterialPageRoute(builder: (context) {
+                  //   return EditProfilePage();
+                  // }));
                 },
                 color: Color.fromARGB(255, 165, 223, 153),
                 elevation: 0,
