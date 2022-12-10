@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:provider/provider.dart';
+import 'package:wazzt/main.dart';
 import 'package:wazzt/modules/account_auth/pages/signup_page.dart';
-import 'package:wazzt/modules/account_auth/pages/temp_auth_page.dart';
 
 import '../../../widget/Drawer.dart';
 import '../utils/cookie_request.dart';
@@ -168,14 +168,12 @@ class _State extends State<LoginPage> {
                                       _loginFormKey.currentState?.reset();
                                       if (request.loggedIn) {
                                         print("udah login nih");
-                                        // print(request.is_bank);
-                                        // print(request.is_regular);
-                                        // print(request.is_admin);
                                         showAlertDialog2(context);
                                       } else {
                                         print("blm login nih");
                                         showAlertDialog(context);
                                       }
+
                                     } else {
                                       print("tidak valid");
                                     }
@@ -242,21 +240,17 @@ showAlertDialog2(BuildContext context) {
     onPressed: () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const AuthPage()),
+        MaterialPageRoute(
+            builder: (context) => const MyHomePage(title: "")
+        ),
       );
-      // Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => AuthPage()
-      //     )
-      // );
     },
   );
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
     title: Text("Selamat!"),
-    content: Text("Anda berhasil login"),
+    content: Text("Anda berhasil login."),
     actions: [
       okButton,
     ],

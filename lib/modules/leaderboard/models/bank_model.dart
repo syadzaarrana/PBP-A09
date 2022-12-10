@@ -14,13 +14,13 @@ class Leaderboard {
   Leaderboard(
       {required this.name,
         required this.city,
-        //required this.address,
-        required this.weight,});
+        required this.address,
+      });
 
   String name;
   String city;
-  //String address;
-  int weight;
+  String address;
+
 
   // void changeStatus() {
   //   this.watched = !this.watched;
@@ -29,14 +29,14 @@ class Leaderboard {
   factory Leaderboard.fromJson(Map<String, dynamic> json) => Leaderboard(
     name: json["fields"]["name"],
     city: json["fields"]["city"],
-    //address: json["fields"]["address"],
-    weight: json["fields"]["weight"],
+    address: json["fields"]["address"],
+    //weight: json["fields"]["weight"],
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
     "city": city,
-    //"address": address,
-    "weight" : weight,
+    "address": address,
+    //"weight" : weight,
   };
 }

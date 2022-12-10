@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:provider/provider.dart';
-import 'package:wazzt/modules/account_auth/pages/temp_auth_page.dart';
 
 import '../utils/city_list.dart';
 import '../utils/cookie_request.dart';
@@ -374,6 +373,7 @@ class _State extends State<SignupRegPage> {
                                 // ),
                                 SizedBox(height: 0),
                                 DropdownButtonFormField(
+                                  hint: Text('Domisili'),
                                   decoration: InputDecoration(
                                     // filled: true,
                                     labelText: 'Domisili',
@@ -426,6 +426,8 @@ class _State extends State<SignupRegPage> {
 
                                       const url = "https://wazzt.up.railway.app/authentication/signup_reg/";
 
+
+
                                       final response =
                                           await request.signup(url, {
                                             'name' : _controllerName.text,
@@ -451,6 +453,8 @@ class _State extends State<SignupRegPage> {
                                     } else {
                                       print("tidak valid");
                                     }
+
+
                                   },
                                   child: Text("Sign Up"),
                                 ))
@@ -465,8 +469,8 @@ class _State extends State<SignupRegPage> {
                       ),
                       onPressed: () {
                         //signup screen
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
+                        // Navigator.pop(context);
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

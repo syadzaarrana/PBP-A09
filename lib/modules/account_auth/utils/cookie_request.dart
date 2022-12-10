@@ -8,16 +8,11 @@ class CookieRequest {
   Map<String, String> headers = {};
   Map<String, String> cookies = {};
   final http.Client _client = http.Client();
-  // String? username = "";
-  // String email = "";
-  // bool is_admin = false;
   bool is_regular = false;
   bool is_bank = false;
   int id = 0;
-
   String message = "";
 
-  // late SharedPreferences local;
   late SharedPreferences local;
 
   bool loggedIn = false;
@@ -33,9 +28,6 @@ class CookieRequest {
         if (cookies['sessionid'] != null) {
           loggedIn = true;
           headers['cookie'] = _generateCookieHeader();
-          // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          //   content: Text("Successfully logged in. Welcome back!"),
-          // ));
         }
       }
     }
@@ -47,6 +39,9 @@ class CookieRequest {
   }
 
   Future<dynamic> login(String url, dynamic data) async {
+
+    signedUp = false;
+
     if (kIsWeb) {
       dynamic c = _client;
       c.withCredentials = true;
@@ -55,14 +50,9 @@ class CookieRequest {
     http.Response response =
     await _client.post(Uri.parse(url), body: data, headers: headers);
 
-    _updateCookie(response);
+    await _updateCookie(response);
 
     if (response.statusCode == 200) {
-
-      // username = (json.decode(response.body)['data']['user']['username'] == Null ?
-      //   "" : json.decode(response.body)['data']['user']['username']);
-      // email = json.decode(response.body)['data']['user']['email'];
-      // is_admin = json.decode(response.body)['data']['user']['is_admin'];
       is_regular = json.decode(response.body)['data']['user']['is_regular'];
       is_bank = json.decode(response.body)['data']['user']['is_bank'];
       id = json.decode(response.body)['data']['user']['id'];
@@ -75,21 +65,21 @@ class CookieRequest {
   }
 
   Future<dynamic> signup(String url, dynamic data) async {
+
+    signedUp = false;
+
     if (kIsWeb) {
       dynamic c = _client;
       c.withCredentials = true;
     }
 
-    http.Response response =
-    await _client.post(Uri.parse(url), body: data, headers: headers);
+    http.Response response = await _client.post(Uri.parse(url), body: data, headers: headers);
 
     await _updateCookie(response);
 
     if (response.statusCode == 200) {
-      //print(json.decode(response.body));
       signedUp = true;
     } else {
-      print(json.decode(response.body));
       message = json.decode(response.body)['data']['warning'];
       signedUp = false;
     }
@@ -97,14 +87,12 @@ class CookieRequest {
     return json.decode(response.body); // Expects and returns JSON request body
   }
 
-
   Future<dynamic> get(String url) async {
     if (kIsWeb) {
       dynamic c = _client;
       c.withCredentials = true;
     }
-    http.Response response =
-    await _client.get(Uri.parse(url), headers: headers);
+    http.Response response = await _client.get(Uri.parse(url), headers: headers);
     await _updateCookie(response);
     return json.decode(response.body); // Expects and returns JSON request body
   }
@@ -177,14 +165,8 @@ class CookieRequest {
           'loggedIn': true,
         })
     );
-    // print(json.decode(response.body));
-    print(response.statusCode);
-    print(json.decode(response.body));
     if (response.statusCode == 200) {
       loggedIn = false;
-      // username = "";
-      // email = "";
-      // is_admin = false;
       is_regular = false;
       is_bank = false;
       id = 0;
