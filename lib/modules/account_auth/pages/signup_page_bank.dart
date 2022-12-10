@@ -352,6 +352,8 @@ class _State extends State<SignupBankPage> {
                                     } else {
                                       print("tidak valid");
                                     }
+
+
                                   },
                                   child: Text("Sign Up"),
                                 ))

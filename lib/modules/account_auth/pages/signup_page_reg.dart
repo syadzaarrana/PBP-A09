@@ -426,6 +426,8 @@ class _State extends State<SignupRegPage> {
 
                                       const url = "https://wazzt.up.railway.app/authentication/signup_reg/";
 
+
+
                                       final response =
                                           await request.signup(url, {
                                             'name' : _controllerName.text,
@@ -451,6 +453,8 @@ class _State extends State<SignupRegPage> {
                                     } else {
                                       print("tidak valid");
                                     }
+
+
                                   },
                                   child: Text("Sign Up"),
                                 ))
