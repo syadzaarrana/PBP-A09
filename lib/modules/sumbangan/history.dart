@@ -1,32 +1,36 @@
 import 'package:http/http.dart' as http;
-import 'package:wazzt/modules/leaderboard/models/leaderboard_model.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 
 import 'package:wazzt/main.dart';
-import 'package:wazzt/modules/leaderboard/utils/fetch.dart';
+import 'package:wazzt/modules/sumbangan/utils/fetch.dart';
 import 'package:flutter/material.dart';
 import 'package:wazzt/widget/Drawer.dart';
+import '../account_auth/utils/cookie_request.dart';
+import 'models/sumbangan_model.dart';
 
-class LeaderboardPage extends StatefulWidget {
-  const LeaderboardPage({Key? key}) : super(key: key);
+class HistoryPage extends StatefulWidget {
+  const HistoryPage({Key? key}) : super(key: key);
 
   @override
-  State<LeaderboardPage> createState() => _LeaderboardPageState();
+  State<HistoryPage> createState() => _HistoryPageState();
 }
 
-class _LeaderboardPageState extends State<LeaderboardPage> {
+class _HistoryPageState extends State<HistoryPage> {
 
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+    print(request.id);
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Leaderboard'),
+          title: const Text('History'),
         ),
         drawer: buildDrawer(context),
 
         body: FutureBuilder(
-            future: fetchToDo(),
+            future: fetchHistory(request.id),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
@@ -35,7 +39,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                   return Column(
                     children: const [
                       Text(
-                        "Belum ada user",
+                        "Belum ada donasi",
                         style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),),
                       SizedBox(height: 8),
                     ],
@@ -50,11 +54,13 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
 
                             PaginatedDataTable(
                               source: dataSource(snapshot.data),
-                              header: const Text('Leaderboard'),
+                              header: const Text('History'),
                               columns: const [
-                                DataColumn(label: Text('Nama')),
-                                DataColumn(label: Text('Domisili')),
-                                DataColumn(label: Text('Berat')),
+                                DataColumn(label: Text('Tanggal')),
+                                DataColumn(label: Text('Bank Sampah')),
+                                DataColumn(label: Text('Jenis Sampah')),
+                                DataColumn(label: Text('Berat Sampah')),
+                                DataColumn(label: Text('Poin')),
                               ],
                               showCheckboxColumn: false,
                             ),
@@ -63,13 +69,13 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
               }
             }));
   }
-  DataTableSource dataSource(List<Leaderboard> leaderboardList) =>
-      MyData(dataList: leaderboardList);
+  DataTableSource dataSource(List<Donasi> donasiList) =>
+      MyData(dataList: donasiList);
 }
 
 class MyData extends DataTableSource {
   MyData({required this.dataList});
-  final List<Leaderboard> dataList;
+  final List<Donasi> dataList;
   // Generate some made-up data
 
   @override
@@ -83,13 +89,19 @@ class MyData extends DataTableSource {
     return DataRow(
       cells: [
         DataCell(
-          Text(dataList[index].name),
+          Text(dataList[index].date.toString()),
         ),
         DataCell(
-          Text(dataList[index].city),
+          Text(dataList[index].bank_sampah),
         ),
         DataCell(
-          Text(dataList[index].weight.toString()),
+          Text(dataList[index].jenis),
+        ),
+        DataCell(
+          Text(dataList[index].berat.toString()),
+        ),
+        DataCell(
+          Text(dataList[index].poin.toString()),
         ),
       ],
     );

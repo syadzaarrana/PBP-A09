@@ -1,13 +1,22 @@
 import 'dart:convert';
-import 'dart:core';
+
+// To parse this JSON data, do
+//
+//     final todo = todoFromJson(jsonString);
+
+List<Donasi> DonasiFromJson(String str) =>
+    List<Donasi>.from(json.decode(str).map((x) => Donasi.fromJson(x)));
+
+String DonasiToJson(List<Donasi> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Donasi {
-  final String donatur;
-  final String date;
-  final String jenis;
-  final String berat;
-  final int poin;
-  final String bank_sampah;
+  dynamic donatur;
+  dynamic date;
+  dynamic jenis;
+  dynamic berat;
+  dynamic poin;
+  dynamic bank_sampah;
 
 
   Donasi({
@@ -19,32 +28,21 @@ class Donasi {
     required this.bank_sampah,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'donatur': donatur,
-      'date': date,
-      'jenis': jenis,
-      'berat': berat,
-      'poin': poin,
-      'bank_sampah': bank_sampah,
-    };
-  }
-
-  factory Donasi.fromJson(Map<String, dynamic> map) {
-    return Donasi(
-      donatur: map['donatur'],
-      date: map['date'],
-      jenis: map['jenis'],
-      berat: map['berat'],
-      poin: map['poin'],
-      bank_sampah: map['bank_sampah'],
+  factory Donasi.fromJson(Map<String, dynamic> json) => Donasi(
+      donatur: json["fields"]["donatur"],
+      date: json["fields"]["date"],
+      jenis: json["fields"]["jenis"],
+      berat: json["fields"]["berat"],
+      poin: json["fields"]["poin"],
+      bank_sampah: json["fields"]["bank_sampah"],
     );
-  }
 
-  String toJson() => json.encode(toMap());
-
-  @override
-  String toString() {
-    return 'Donasi(donatur: $donatur, date: $date, jenis: $jenis, berat: $berat, poin: $poin, bank_sampah: $bank_sampah)';
-  }
+  Map<String, dynamic> toJson() => {
+    'donatur': donatur,
+    'date': date,
+    'jenis': jenis,
+    'berat': berat,
+    'poin': poin,
+    'bank_sampah': bank_sampah,
+  };
 }

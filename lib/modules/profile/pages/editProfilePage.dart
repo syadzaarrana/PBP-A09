@@ -5,47 +5,12 @@ import 'dart:convert';
 import 'dart:async';
 import 'dart:core';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
-import '../account_auth/utils/city_list.dart';
+import '../../account_auth/utils/city_list.dart';
+import '../../account_auth/utils/cookie_request.dart';
+import 'cobaShowReg.dart';
 import 'showProfilePage.dart';
-
-class User {
-  String name = "";
-  String username = "";
-  String email = "";
-  int age = 0;
-  String gender = "";
-  String city = "";
-  // String address = "";
-  String id = "";
-  bool? is_regular;
-
-  User({
-    required this.name,
-    required this.username,
-    required this.email,
-    required this.age,
-    required this.gender,
-    required this.city,
-    // required this.address,
-    required this.id,
-    required this.is_regular,
-  });
-
-  factory User.fromJson(Map<String, dynamic> data) {
-    return User(
-      name: data["data"]["data"]["name"],
-      username: data["data"]["data"]["username"],
-      email: data["data"]["data"]["email"],
-      age: data["data"]["data"]["age"],
-      gender: data["data"]["data"]["gender"],
-      city: data['data']['data']["city"],
-      // address: data['data']['data']["address"],
-      id: data["data"]["data"]["id"],
-      is_regular: data["data"]["data"]["is_regular"],
-    );
-  }
-}
 
 bool isInRange(String str) {
   return (int.parse(str) >= 13) && (int.parse(str) <= 100);
@@ -65,28 +30,42 @@ class _EditProfilePage extends State<EditProfilePage> {
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerAge = TextEditingController();
 
-  String gender = "";
+  String? gender;
   String city = "Aceh";
-
-  String validasi_email = "valid";
-  void createAlertDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Maaf atas ketidaknyamanannya"),
-            content: Text("Email ini sudah digunakan User lain"),
-            // actions: <Widget>[
-            //   FlatButton(onPressed: Navigator.of(context).pop, child: Text("Close")),
-            // ],
-          );
-        });
-  }
 
   final _regEditFormKey = GlobalKey<FormState>();
 
+  Future<void> submit(BuildContext context, int idPemilik) async {
+    final response = await http.post(
+        Uri.parse("http://127.0.0.1:8000/for_profile/edit_reg_flutter"
+         ),
+        // "http://127.0.0.1:8000/for_profile/edit_reg_flutter"
+        // "https://wazzt.up.railway.app/for_profile/edit_reg_flutter"
+
+        // headers: <String, String>{
+        //   'Content-Type': 'application/json'},
+        headers: {
+          // "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          // "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+        },
+        body: jsonEncode(<String, dynamic>{
+          'name': _controllerName.text,
+          'username': _controllerUsername.text,
+          'email': _controllerEmail.text, // idPemilik, cookie?
+          'age': _controllerAge
+              .text, // dari syadza harusnya widget.fields["title"],
+          'gender': gender,
+          'city': city,
+        }));
+    print(response.body);
+    print(response.headers);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+    int idPemilik = request.id;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
@@ -157,6 +136,8 @@ class _EditProfilePage extends State<EditProfilePage> {
                                 color: Color.fromRGBO(250, 250, 250, 0.95),
                               ),
                             ),
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Tidak Boleh Kosong';
@@ -172,7 +153,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: TextFormField(
-                            controller: _controllerAge,
+                            controller: _controllerEmail,
                             decoration: InputDecoration(
                               labelText: 'Email',
                               labelStyle: TextStyle(
@@ -185,6 +166,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                                 color: Color.fromRGBO(250, 250, 250, 0.95),
                               ),
                             ),
+                            // autovalidateMode: AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Email Tidak Boleh Kosong';
@@ -200,7 +182,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: TextFormField(
-                            controller: _controllerAge,
+                            controller: _controllerUsername,
                             decoration: InputDecoration(
                               labelText: 'Username',
                               labelStyle: TextStyle(
@@ -213,6 +195,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                                 color: Color.fromRGBO(250, 250, 250, 0.95),
                               ),
                             ),
+                            // autovalidateMode: AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Username Tidak Boleh Kosong';
@@ -241,6 +224,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                                 color: Color.fromRGBO(250, 250, 250, 0.95),
                               ),
                             ),
+                            // autovalidateMode: AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Umur harus berupa angka!';
@@ -310,7 +294,6 @@ class _EditProfilePage extends State<EditProfilePage> {
                                 }),
                           ],
                         ),
-                        
                         SizedBox(height: 10),
                         Column(children: [
                           SizedBox(height: 0),
@@ -341,7 +324,6 @@ class _EditProfilePage extends State<EditProfilePage> {
                             },
                           ),
                         ]),
-                        
                         SizedBox(height: 20),
                         Container(
                           padding: EdgeInsets.only(top: 3, left: 3),
@@ -357,66 +339,10 @@ class _EditProfilePage extends State<EditProfilePage> {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () async {
-                              String id = widget.id;
-                              print(id);
-                              var URL =
-                                  "https://wazzt.up.railway.app/for_profile/edit_profile/" +
-                                      id +
-                                      "/validate_email";
-                              final Response = await http.post(
-                                Uri.parse(URL),
-                                headers: <String, String>{
-                                  'Content-Type': 'application/json'
-                                },
-                                body: jsonEncode(<String, String>{
-                                  'email': _controllerEmail.text,
-                                }),
-                              );
-                              print(Response);
-                              print(URL);
-                              print(Response.body);
-                              Map<String, dynamic> data =
-                                  jsonDecode(Response.body);
-                              print("hellow 1");
-                              validasi_email = data['data']['validasi'];
-                              print(validasi_email);
-                              print("heellooww 2");
-                              if (validasi_email != "terpakai") {
-                                if (_regEditFormKey.currentState!.validate()) {
-                                  print(id);
-                                  var url =
-                                      'https://wazzt.up.railway.app/for_profile/edit_profile/' +
-                                          id +
-                                          '/edit';
-                                  print("ABC");
-                                  final response = await http.post(
-                                      Uri.parse(url),
-                                      headers: <String, String>{
-                                        'Content-Type': 'application/json'
-                                      },
-                                      body: jsonEncode(<String, String>{
-                                        'name': _controllerName.text,
-                                        'email': _controllerEmail.text,
-                                        'username': _controllerUsername.text,
-                                        'age': _controllerAge.text,
-                                        'gender': gender,
-                                        'city': city,
-                                      }));
-                                  print("tess");
-                                  print(response);
-                                  Map<String, dynamic> data =
-                                      jsonDecode(response.body);
-                                  print(data);
-
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) =>
-                                  //           ShowProfilePage(id)),
-                                  // );
-                                }
-                              } else {
-                                print(validasi_email);
-                                createAlertDialog();
+                              print("edit submitted");
+                              if (_regEditFormKey.currentState!.validate()) {
+                                _regEditFormKey.currentState!.save();
+                                submit(context, idPemilik);
                               }
                             },
                             color: Color.fromARGB(255, 165, 223, 153),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../../../widget/Drawer.dart';
+import '../../../../widget/Drawer.dart';
 
 import 'dart:async';
 import 'dart:core';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'editBankPage.dart';
 import 'editProfilePage.dart';
 
 Future<User> fetchUser(String ID) async {
@@ -59,18 +60,18 @@ class User {
   }
 }
 
-class ShowProfilePage extends StatefulWidget {
+class ShowBankPage extends StatefulWidget {
   final String id;
-  ShowProfilePage(this.id) : super(key: null);
+  ShowBankPage(this.id) : super(key: null);
 
   // const ShowProfilePage({super.key});
 
   @override
   // State<ShowProfilePage> createState() => _ShowProfilePageState();
-  _ShowProfilePageState createState() => _ShowProfilePageState();
+  _ShowBankPageState createState() => _ShowBankPageState();
 }
 
-class _ShowProfilePageState extends State<ShowProfilePage> {
+class _ShowBankPageState extends State<ShowBankPage> {
   @override
   Widget build(BuildContext context) {
     // print(name + "ABC");
@@ -104,10 +105,10 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                   ),
                 )),
             
-            CircleAvatar(
-              radius: 50.0,
-              backgroundImage: AssetImage('assets/img/user_icon.png'),
-            ),
+            // CircleAvatar(
+            //   radius: 50.0,
+            //   backgroundImage: AssetImage('assets/img/user_icon.png'),
+            // ),
             
             FractionallySizedBox(
               widthFactor: 0.7,
@@ -119,7 +120,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                   gradient: LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
-                      colors: [Colors.purple, Colors.blue]),
+                      colors: [Colors.white, Colors.white]),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Column(
@@ -134,7 +135,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                         style: TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white,
+                          color: Colors.teal,
                         ),
                       ),
                     ),
@@ -143,7 +144,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                       child: Container(
                         padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue,
+                          color: Color.fromARGB(255, 165, 223, 153),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: FutureBuilder<User>(
@@ -154,7 +155,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                               return Text(
                                 snapshot.data!.name,
                                 style: TextStyle(
-                                  color: Colors.teal,
+                                  color: Colors.white,
                                   fontFamily: 'Source Sans Pro',
                                   fontSize: 20.0,
                                 ),
@@ -175,7 +176,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                         style: TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white,
+                          color: Colors.teal,
                         ),
                       ),
                     ),
@@ -184,7 +185,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                       child: Container(
                         padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue,
+                          color: Color.fromARGB(255, 165, 223, 153),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: FutureBuilder<User>(
@@ -195,7 +196,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                               return Text(
                                 snapshot.data!.email,
                                 style: TextStyle(
-                                  color: Colors.teal,
+                                  color: Colors.white,
                                   fontFamily: 'Source Sans Pro',
                                   fontSize: 20.0,
                                 ),
@@ -216,7 +217,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                         style: TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white,
+                          color: Colors.teal,
                         ),
                       ),
                     ),
@@ -225,7 +226,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                       child: Container(
                         padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue,
+                          color: Color.fromARGB(255, 165, 223, 153),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: FutureBuilder<User>(
@@ -235,7 +236,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                               return Text(
                                 snapshot.data!.city,
                                 style: TextStyle(
-                                    color: Colors.teal,
+                                    color: Colors.white,
                                     fontFamily: 'Source Sans Pro',
                                     fontSize: 20.0),
                               );
@@ -255,7 +256,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                         style: TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white,
+                          color: Colors.teal,
                         ),
                       ),
                     ),
@@ -264,7 +265,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                       child: Container(
                         padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue,
+                          color: Color.fromARGB(255, 165, 223, 153),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: FutureBuilder<User>(
@@ -296,15 +297,15 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
               widthFactor: 0.7,
               child: Container(
                 margin: EdgeInsets.only(top: 10.0),
-                color: Colors.lightBlue,
+                color: Colors.white,
                 child: MaterialButton(
                   minWidth: double.infinity,
                   height: 60,
                   onPressed: () {
-                    // Navigator.of(context)
-                    //     .pushReplacement(MaterialPageRoute(builder: (context) {
-                    //   return EditProfilePage();
-                    // }));
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(builder: (context) {
+                      return EditBankPage(id.toString());
+                    }));
                   },
                   color: Color.fromARGB(255, 165, 223, 153),
                   elevation: 0,
