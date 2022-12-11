@@ -37,17 +37,16 @@ class _EditProfilePage extends State<EditProfilePage> {
 
   Future<void> submit(BuildContext context, int idPemilik) async {
     final response = await http.post(
-        Uri.parse("http://127.0.0.1:8000/for_profile/edit_reg_flutter"
+        Uri.parse("https://wazzt.up.railway.app/for_profile/edit_reg_flutter"
          ),
         // "http://127.0.0.1:8000/for_profile/edit_reg_flutter"
         // "https://wazzt.up.railway.app/for_profile/edit_reg_flutter"
+        // http://127.0.0.1:8000/for_profile/edit_reg_flutter
 
         // headers: <String, String>{
         //   'Content-Type': 'application/json'},
-        headers: {
-          // "Access-Control-Allow-Origin": "*",
+        headers: <String, String>{
           "Content-Type": "application/json",
-          // "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept, Authorization",
         },
         body: jsonEncode(<String, dynamic>{
           'name': _controllerName.text,
@@ -59,7 +58,7 @@ class _EditProfilePage extends State<EditProfilePage> {
           'city': city,
         }));
     print(response.body);
-    print(response.headers);
+    // print(response.headers);
   }
 
   @override
