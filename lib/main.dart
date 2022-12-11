@@ -41,7 +41,12 @@ class MyApp extends StatelessWidget {
             // is not restarted.
             // colorScheme: ColorScheme.fromSwatch().copyWith(
             //     secondary: Colors.greenAccent),
+            // fontFamily: 'Lato',
             primarySwatch: Colors.green,
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              primary: Colors.green[400],
+              secondary: Colors.green[900],
+            ),
           ),
           // home: const MyHomePage(title: 'KonvaSearch'),
           home: MyHomePage(title: "Wazzt"),
