@@ -34,9 +34,9 @@ Drawer buildDrawer(BuildContext context) {
             }),
         ListTile(
           title: const Text('Forum'),
-          //     onTap: () {
-          //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyFormPage()),);
-          //     }
+              onTap: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ForumPage()),);
+              }
         ),
        Visibility(
           visible: _request.is_regular,

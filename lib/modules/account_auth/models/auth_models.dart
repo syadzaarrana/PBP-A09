@@ -9,8 +9,8 @@ class User {
   String? gender = "";
   String? city = "";
   String? address = "";
-  int? score = 0;
-  double? weight = 0;
+  double? score = 0;
+  int? weight = 0;
 
   bool? is_regular;
   bool? is_bank;

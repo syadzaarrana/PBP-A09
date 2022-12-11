@@ -28,7 +28,7 @@ import 'dart:convert';
 
 Future<User> fetchUser(int id) async {
   var url = Uri.parse(
-      "http://127.0.0.1:8000/for_profile/flutter/" + id.toString() + "/");
+      "http://wazzt.up.railway.app/for_profile/flutter/" + id.toString() + "/");
   // "https://wazzt.up.railway.app/for_profile/flutter/1"
   // "http://127.0.0.1:8000/for_profile/flutter/"
   var response = await http.get(
