@@ -1,4 +1,4 @@
-# REPOSITORI TUGAS KELOMPOK MID-TERM A09
+# REPOSITORI TUGAS KELOMPOK FINAL PROJECT A09
 
 ## Nama anggota:
 
@@ -27,10 +27,11 @@ Banyaknya jumlah masyarakat dan sampah yang dihasilkan berdampak pada kesejahter
 Maka dari itu, sebagai bentuk aksi untuk ikut berkontribusi dalam mencapai Environment & Climate Sustainability, kami membuat aplikasi Wazzt. Aplikasi ini bertujuan untuk mengatasi permasalahan sampah di Indonesia sekaligus memotivasi warga untuk memilah sampah dengan menyediakan sistem point reward & leaderboard.
 
 ## Modul yang diimplementasikan
-1. Login/Logout (bikin user / bank sampah baru) akan dikerjakan oleh Fauziah Putri Fajrianti
+1. Login/Logout/Sign Up akan dikerjakan oleh Fauziah Putri Fajrianti
     - Login: username, email, password
-    - Register user biasa: nama, username, umur, jenis kelamin, email, password, domisili
-    - Register user bank sampah: nama institusi, email, password, domisili, alamat lengkap
+    - Sign up untuk user biasa: nama, username, umur, jenis kelamin, email, password, domisili
+    - Sign up untuk user bank sampah: nama institusi, email, password, domisili, alamat lengkap
+    - Logout
 2. Forum akan dikerjakan oleh Hizkia Sebastian Ginting
     - Daftar Pertanyaan
     - Form pertanyaan
@@ -39,12 +40,12 @@ Maka dari itu, sebagai bentuk aksi untuk ikut berkontribusi dalam mencapai Envir
     - Lihat profile
     - Edit profile
 4. Home & Leaderboard untuk user akan dikerjakan oleh Made Indri Maharani Natiadewi
-    - Home: About us, Daftar Bank sampah (berupa card2), visi misi
+    - Home: About us, Daftar Bank sampah (berupa card-card), visi misi
     - Leaderboard: berupa tabel yang isinya ada peringkat, nama, domisili, berat sampah total
 5. Form upload deskripsi bank sampah & Halaman detail bank sampah akan dikerjakan oleh Syadza Nayla Arrana Desvianto
     - Form upload: judul, tanggal, image, deskripsi
     - Halaman detail: informasi umum bank sampah, deskripsi-deskripsi yang sudah di-upload
-6. Form nyumbang sampah & history akan dikerjakan oleh Muhamnad Fariz Eda Andhika
+6. Form mennyumbang sampah & history akan dikerjakan oleh Muhamnad Fariz Eda Andhika
     - Form: jenis sampah, berat sampah
     - History: nama bank sampah, berat sampah, tanggal penyumbangan, poin
 7. Tukar poin akan dikerjakan oleh Laura Glory Evangeline Sihombing
@@ -59,8 +60,8 @@ Maka dari itu, sebagai bentuk aksi untuk ikut berkontribusi dalam mencapai Envir
     - Contact information
     - Daftar bank sampah
 2. User biasa:
-    - Form login dan registrasi
-    - Forum (Ajax)
+    - Login/Logout dan Sign Up
+    - Forum
     - Profile
     - Daftar bank sampah
     - History setiap pengguna
@@ -68,9 +69,9 @@ Maka dari itu, sebagai bentuk aksi untuk ikut berkontribusi dalam mencapai Envir
     - Form jenis sampah untuk poin
     - Tukar poin
 5. User Bank Sampah:
-    - Sign up/login (lokasi & nama)
+    - Login/Logout dan Sign Up
     - Profile
-    - Forum (Ajax)
+    - Forum
     - Mengupload deskripsi
 
 
