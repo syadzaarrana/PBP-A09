@@ -1,36 +1,51 @@
 // import 'dart:convert';
-// import 'dart:async';
 // import 'dart:core';
-// import 'package:http/http.dart' as http;
 
 // class User {
-//   String name = "";
-//   String username = "";
-//   String email = "";
-//   String age = "";
-//   String gender = "";
-//   String city = "";
-//   String address = "";
-  
+//   String? username = "";
+//   String? email = "";
+//   String? name = "";
+//   int? age = 0;
+//   String? gender = "";
+//   String? city = "";
+//   String? address = "";
+//   int? score;
+//   int? weight;
+
+//   bool? is_regular;
+//   bool? is_bank;
+//   bool? is_superuser;
+
 //   User({
-//     required this.name,
-//     required this.username,
-//     required this.email,
-//     required this.age,
-//     required this.gender,
-//     required this.city,
-//     required this.address,
+//     this.username,
+//     this.email,
+//     this.name,
+//     this.age,
+//     this.gender,
+//     this.city,
+//     this.address,
+//     this.score,
+//     this.weight,
+
+//     this.is_regular,
+//     this.is_bank,
+//     this.is_superuser,
+
 //   });
 
 //   factory User.fromJson(Map<String, dynamic> data) {
 //     return User(
-//       name: data["data"]["data"]["name"],
-//       username: data["data"]["data"]["username"],
-//       email: data["data"]["data"]["email"],
-//       age: data["data"]["data"]["age"],
-//       gender: data["data"]["data"]["gender"],
-//       city: data['data']['data']["city"],
-//       address: data['data']['data']["address"],
-//     );
+//         username: data["data"]["data"]["username"],
+//         email: data["data"]["data"]["email"],
+//         name: data["data"]["data"]["name"],
+//         age: data["data"]["data"]["age"],
+//         gender: data["data"]["data"]["gender"],
+//         city: data["data"]["data"]["city"],
+//         address: data["data"]["data"]["address"],
+//         score: data["data"]["data"]["score"],
+//         weight: data["data"]["data"]["weight"],
+//         is_regular: data["data"]["data"]["is_regular"],
+//         is_bank: data["data"]["data"]["is_bank"],
+//         is_superuser: data["data"]["data"]["is_superuser"]);
 //   }
 // }
