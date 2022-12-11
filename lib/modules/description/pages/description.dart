@@ -26,7 +26,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
     return Scaffold(
       backgroundColor: Colors.green.shade50,
       appBar: AppBar(
-        title: const Text('Detail'),
+        title: const Text('Waste Bank Page'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(17),
