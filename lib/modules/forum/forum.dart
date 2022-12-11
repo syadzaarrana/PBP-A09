@@ -1,7 +1,9 @@
+import 'package:wazzt/modules/forum/addQuestion.dart';
 import 'package:wazzt/modules/forum/utils/fetch.dart';
 import 'package:wazzt/modules/forum/models/forum_model.dart';
 import 'package:wazzt/widget/Drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
 
 class ForumPage extends StatefulWidget {
   const ForumPage({super.key});
@@ -47,38 +49,42 @@ class _ForumPageState extends State<ForumPage> {
               } else {
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
-                  itemBuilder: (_, index) => GestureDetector(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      padding: const EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 134, 235, 172),
-                          borderRadius: BorderRadius.circular(15.0),
-                          boxShadow: const [
-                            BoxShadow(color: Colors.black, blurRadius: 2.0)
-                          ]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  itemBuilder: (_, index) => GFAccordion(
+                      content: "${snapshot.data![index].fields.body}",
+                      titleChild: Row(
                         children: [
+                          Image.network(
+                              "https://cdn-icons-png.flaticon.com/512/1179/1179267.png",
+                              height: 35,
+                              fit: BoxFit.fill),
                           Text(
-                            "${snapshot.data![index].fields.body}",
+                            "${snapshot.data![index].fields.title}",
                             style: const TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                  ),
+                      )),
                 );
               }
             }
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyFormPage(),
+              )); // Add your onPressed code here!
+        },
+        label: const Text('Tambahkan Pertanyaan'),
+        icon: const Icon(Icons.add),
+        backgroundColor: Color.fromARGB(255, 102, 243, 193),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
