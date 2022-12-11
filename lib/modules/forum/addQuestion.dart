@@ -5,7 +5,7 @@ import 'package:wazzt/modules/forum/forum.dart';
 import 'package:intl/intl.dart';
 import 'package:wazzt/widget/Drawer.dart';
 import 'package:provider/provider.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:wazzt/modules/account_auth/utils/cookie_request.dart';
 import 'dart:convert';
 
 class MyFormPage extends StatefulWidget {
@@ -23,6 +23,7 @@ class _MyFormPageState extends State<MyFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -162,7 +163,8 @@ class _MyFormPageState extends State<MyFormPage> {
                                     'Content-Type':
                                         'application/json; charset=UTF-8'
                                   },
-                                  body: jsonEncode(<String, String>{
+                                  body: jsonEncode(<String, dynamic>{
+                                    "author": request.id,
                                     "title": _judul,
                                     "body": _isi,
                                   }));
