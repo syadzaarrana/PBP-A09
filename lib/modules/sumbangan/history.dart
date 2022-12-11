@@ -17,8 +17,6 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-
-
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -28,21 +26,18 @@ class _HistoryPageState extends State<HistoryPage> {
           title: const Text('History'),
         ),
         drawer: buildDrawer(context),
-
         body: FutureBuilder(
             future: fetchHistory(request.id),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                if (!snapshot.hasData) {
-                  return Column(
-                    children: const [
-                      Text(
-                        "Belum ada donasi",
-                        style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),),
-                      SizedBox(height: 8),
-                    ],
+                if (snapshot.data!.length == 0) {
+                  return const Center(
+                    child: Text(
+                      "Belum ada donasi",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
                   );
                 } else {
                   return SingleChildScrollView(
@@ -51,7 +46,6 @@ class _HistoryPageState extends State<HistoryPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
                             PaginatedDataTable(
                               source: dataSource(snapshot.data),
                               header: const Text('History'),
@@ -69,6 +63,7 @@ class _HistoryPageState extends State<HistoryPage> {
               }
             }));
   }
+
   DataTableSource dataSource(List<Donasi> donasiList) =>
       MyData(dataList: donasiList);
 }
@@ -107,4 +102,3 @@ class MyData extends DataTableSource {
     );
   }
 }
-

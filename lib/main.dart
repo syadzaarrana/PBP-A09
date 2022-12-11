@@ -41,7 +41,12 @@ class MyApp extends StatelessWidget {
             // is not restarted.
             // colorScheme: ColorScheme.fromSwatch().copyWith(
             //     secondary: Colors.greenAccent),
+            // fontFamily: 'Lato',
             primarySwatch: Colors.green,
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              primary: Colors.green[400],
+              secondary: Colors.green[900],
+            ),
           ),
           // home: const MyHomePage(title: 'KonvaSearch'),
           home: MyHomePage(title: "Wazzt"),
@@ -182,6 +187,28 @@ class _MyHomePageState extends State<MyHomePage> {
                                               );
                                             }
                                           }),
+                                      TextButton(
+                                          child: const Text(
+                                            "Add description",
+                                            style: TextStyle(
+                                                color: Colors.cyanAccent),
+                                          ),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.white12),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      UploadForm(
+                                                        id: snapshot
+                                                            .data![index].pk,
+                                                      )),
+                                            );
+                                          }),
                                       Visibility(
                                         visible: request.is_bank ? true : false,
                                         child: Column(
@@ -206,7 +233,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const MyFormPage()),
+                                                            UploadForm(
+                                                              id: snapshot
+                                                                  .data![index]
+                                                                  .pk,
+                                                            )),
                                                   );
                                                 }),
                                           ],

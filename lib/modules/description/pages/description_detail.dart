@@ -21,37 +21,34 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.green.shade50,
         appBar: AppBar(
           title: const Text('Description Detail'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Text(
-                widget.title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                widget.date,
-                style: const TextStyle(fontSize: 12),
-              ),
-              const SizedBox(height: 25),
-              Text(
-                widget.desc,
-                textAlign: TextAlign.justify,
-              ),
-              const Spacer(),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(45)),
-                  onPressed: (() => Navigator.pop(context)),
-                  child: const Text(
-                    'Back',
-                    style: TextStyle(fontSize: 14),
-                  ))
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.network(
+                    "https://wazzt.up.railway.app/media/${widget.image}"),
+                const SizedBox(height: 30),
+                Text(
+                  widget.title,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  widget.date,
+                  style: const TextStyle(fontSize: 12),
+                ),
+                const SizedBox(height: 25),
+                Text(
+                  widget.desc,
+                  textAlign: TextAlign.justify,
+                ),
+              ],
+            ),
           ),
         ));
   }

@@ -39,9 +39,10 @@ dependencies:
   http: ^0.13.5
   provider: ^6.0.4
   shared_preferences: ^2.0.15
-  pbp_django_auth: ^0.2.3
+  pbp_django_auth: ^0.3.0
   intl: ^0.17.0
   file_picker: ^5.2.3
+  getwidget: ^3.0.1
 
 dev_dependencies:
   flutter_test:
