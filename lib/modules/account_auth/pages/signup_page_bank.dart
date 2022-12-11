@@ -27,10 +27,17 @@ class _State extends State<SignupBankPage> {
 
   String city = "Aceh";
 
-  bool isPasswordVisible = false;
-  void togglePasswordView() {
+  bool isPassword1Visible = false;
+  void togglePassword1View() {
     setState(() {
-      isPasswordVisible = !isPasswordVisible;
+      isPassword1Visible = !isPassword1Visible;
+    });
+  }
+
+  bool isPassword2Visible = false;
+  void togglePassword2View() {
+    setState(() {
+      isPassword2Visible = !isPassword2Visible;
     });
   }
 
@@ -49,7 +56,7 @@ class _State extends State<SignupBankPage> {
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 5),
                     child: const Text(
-                      'Buat akun',
+                      'Create account',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
@@ -59,7 +66,7 @@ class _State extends State<SignupBankPage> {
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                     child: const Text(
-                      'untuk bank sampah',
+                      'for Waste Bank',
                       style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.w500,
@@ -80,7 +87,7 @@ class _State extends State<SignupBankPage> {
                               child: TextFormField(
                                 controller: _controllerName,
                                 decoration: InputDecoration(
-                                  labelText: 'Nama Institusi',
+                                  labelText: 'Institution Name',
                                   labelStyle: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -93,7 +100,7 @@ class _State extends State<SignupBankPage> {
                                     borderSide:
                                     BorderSide(color: Colors.lightGreen),
                                   ),
-                                  hintText: 'Nama Institusi',
+                                  hintText: 'Institution Name',
                                   prefixIcon: Icon(Icons.account_circle),
                                   hintStyle: TextStyle(
                                     color: Color.fromRGBO(200, 200, 200, 1),
@@ -103,7 +110,7 @@ class _State extends State<SignupBankPage> {
                                 AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Nama tidak boleh kosong";
+                                    return "Name can not be blank!";
                                   }
                                   return null;
                                 },
@@ -137,7 +144,7 @@ class _State extends State<SignupBankPage> {
                                 AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Email tidak boleh kosong";
+                                    return "Email can not be blank!";
                                   }
                                   return null;
                                 },
@@ -153,7 +160,7 @@ class _State extends State<SignupBankPage> {
                               ),
                               child: TextFormField(
                                 controller: _controllerPassword1,
-                                obscureText: !isPasswordVisible,
+                                obscureText: !isPassword1Visible,
                                 decoration: InputDecoration(
                                   labelText: 'Password',
                                   labelStyle: TextStyle(
@@ -169,10 +176,10 @@ class _State extends State<SignupBankPage> {
                                   suffixIcon: IconButton(
                                     color: Color.fromRGBO(200, 200, 200, 1),
                                     splashRadius: 1,
-                                    icon: Icon(isPasswordVisible
+                                    icon: Icon(isPassword1Visible
                                         ? Icons.visibility_outlined
                                         : Icons.visibility_off_outlined),
-                                    onPressed: togglePasswordView,
+                                    onPressed: togglePassword1View,
                                   ),
                                   hintStyle: TextStyle(
                                     color: Color.fromRGBO(200, 200, 200, 1),
@@ -182,7 +189,7 @@ class _State extends State<SignupBankPage> {
                                 AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Password tidak boleh kosong";
+                                    return "Password can not be blank!";
                                   }
                                   return null;
                                 },
@@ -196,9 +203,9 @@ class _State extends State<SignupBankPage> {
                               ),
                               child: TextFormField(
                                 controller: _controllerPassword2,
-                                obscureText: !isPasswordVisible,
+                                obscureText: !isPassword2Visible,
                                 decoration: InputDecoration(
-                                  labelText: 'Konfirmasi Password',
+                                  labelText: 'Confirm Password',
                                   labelStyle: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -207,15 +214,15 @@ class _State extends State<SignupBankPage> {
                                     borderSide:
                                     BorderSide(color: Colors.green),
                                   ),
-                                  hintText: 'Konfirmasi Password',
+                                  hintText: 'Confirm Password',
                                   prefixIcon: Icon(Icons.lock),
                                   suffixIcon: IconButton(
                                     color: Color.fromRGBO(200, 200, 200, 1),
                                     splashRadius: 1,
-                                    icon: Icon(isPasswordVisible
+                                    icon: Icon(isPassword2Visible
                                         ? Icons.visibility_outlined
                                         : Icons.visibility_off_outlined),
-                                    onPressed: togglePasswordView,
+                                    onPressed: togglePassword2View,
                                   ),
                                   hintStyle: TextStyle(
                                     color: Color.fromRGBO(200, 200, 200, 1),
@@ -225,7 +232,7 @@ class _State extends State<SignupBankPage> {
                                 AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Password tidak boleh kosong";
+                                    return "Password can not be blank!";
                                   }
                                   return null;
                                 },
@@ -244,7 +251,7 @@ class _State extends State<SignupBankPage> {
                                   DropdownButtonFormField(
                                     decoration: InputDecoration(
                                       // filled: true,
-                                      labelText: 'Domisili',
+                                      labelText: 'Domicile',
                                       labelStyle: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 15,
@@ -282,7 +289,7 @@ class _State extends State<SignupBankPage> {
                                 maxLines: null,
                                 controller: _controllerAddress,
                                 decoration: InputDecoration(
-                                  labelText: 'Alamat Lengkap',
+                                  labelText: 'Full Address',
                                   labelStyle: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -291,7 +298,7 @@ class _State extends State<SignupBankPage> {
                                     borderSide:
                                     BorderSide(color: Colors.green),
                                   ),
-                                  hintText: 'Alamat Lengkap',
+                                  hintText: 'Full Address',
                                   prefixIcon: Icon(Icons.map_sharp),
                                   hintStyle: TextStyle(
                                     color: Color.fromRGBO(200, 200, 200, 1),
@@ -301,7 +308,7 @@ class _State extends State<SignupBankPage> {
                                 AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Username tidak boleh kosong";
+                                    return "Address can not be blank!";
                                   }
                                   return null;
                                 },
@@ -361,10 +368,10 @@ class _State extends State<SignupBankPage> {
                         ))),
                 Row(
                   children: <Widget>[
-                    const Text('Sudah punya akun?'),
+                    const Text('Have an account?'),
                     TextButton(
                       child: const Text(
-                        'Login di sini',
+                        'Login here',
                       ),
                       onPressed: () {
                         //signup screen
@@ -388,7 +395,7 @@ class _State extends State<SignupBankPage> {
 showAlertDialog(BuildContext context, String warning) {
   // set up the button
   Widget okButton = TextButton(
-    child: Text("Coba Lagi"),
+    child: Text("Close"),
     onPressed: () {
       Navigator.pop(context);
     },
@@ -396,7 +403,7 @@ showAlertDialog(BuildContext context, String warning) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Gagal!"),
+    title: Text("Error!"),
     content: Text(warning),
     actions: [
       okButton,
@@ -426,8 +433,8 @@ showAlertDialog2(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Selamat!"),
-    content: Text("Anda berhasil sign up!"),
+    title: Text("Great!"),
+    content: Text("You have successfully signed up!"),
     actions: [
       okButton,
     ],

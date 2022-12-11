@@ -109,7 +109,7 @@ class _State extends State<LoginPage> {
                                   AutovalidateMode.onUserInteraction,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return "Email tidak boleh kosong";
+                                      return "Email can not be blank!";
                                     }
                                     return null;
                                   },
@@ -156,7 +156,7 @@ class _State extends State<LoginPage> {
                                   AutovalidateMode.onUserInteraction,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return "Password tidak boleh kosong";
+                                      return "Password can not be blank!";
                                     }
                                     return null;
                                   },
@@ -204,15 +204,19 @@ class _State extends State<LoginPage> {
                                         print("tidak valid");
                                       }
                                     },
-                                    child: Text("Masuk"),
+                                    child: Text("Login"),
                                   ))
                             ],
                           ))),
                   Row(
                     children: <Widget>[
+                      const Text("Don't have an account?"),
                       TextButton(
                         child: const Text(
-                          'Daftar disini',
+                          'Sign up here',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold
+                          )
                         ),
                         onPressed: () {
                           //signup screen
@@ -223,7 +227,7 @@ class _State extends State<LoginPage> {
                               ));
                         },
                       ),
-                      const Text('apabila tidak memiliki akun'),
+
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,
                   )
@@ -239,7 +243,7 @@ class _State extends State<LoginPage> {
 showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
-    child: Text("Coba Lagi"),
+    child: Text("Close"),
     onPressed: () {
       Navigator.pop(context);
     },
@@ -247,8 +251,8 @@ showAlertDialog(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Gagal!"),
-    content: Text("Email dan password tidak cocok!"),
+    title: Text("An error occured!"),
+    content: Text("Incorrect email, username, or password. Please try again."),
     actions: [
       okButton,
     ],
@@ -279,8 +283,8 @@ showAlertDialog2(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Selamat!"),
-    content: Text("Anda berhasil login."),
+    title: Text("Great!"),
+    content: Text("Your login was successful."),
     actions: [
       okButton,
     ],

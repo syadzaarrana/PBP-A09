@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           return request;
         },
         child: MaterialApp(
-          title: 'KonvaSearch',
+          title: 'Wazzt',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             // This is the theme of your application.
