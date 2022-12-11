@@ -31,7 +31,7 @@ class _MyFormPageState extends State<UploadForm> {
 
   @override
   void initState() {
-    datePicker.text = "";
+    datePicker.text = DateFormat('yyyy-MM-dd').format(DateTime.now());
     super.initState();
   }
 
@@ -214,8 +214,8 @@ class _MyFormPageState extends State<UploadForm> {
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(45)),
                     onPressed: () {
-                      upload();
                       if (_formKey.currentState!.validate()) {
+                        upload();
                         showDialog(
                           context: context,
                           builder: (context) {
@@ -225,8 +225,7 @@ class _MyFormPageState extends State<UploadForm> {
                               ),
                               elevation: 15,
                               child: ListView(
-                                padding:
-                                    const EdgeInsets.only(top: 20, bottom: 20),
+                                padding: const EdgeInsets.all(20),
                                 shrinkWrap: true,
                                 children: <Widget>[
                                   const Center(child: Text('Uploaded Data')),
@@ -244,7 +243,7 @@ class _MyFormPageState extends State<UploadForm> {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: const Text('Kembali'),
+                                    child: const Text('OK'),
                                   ),
                                 ],
                               ),

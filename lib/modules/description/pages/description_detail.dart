@@ -23,7 +23,7 @@ class _DetailPageState extends State<DetailPage> {
     return Scaffold(
         backgroundColor: Colors.green.shade50,
         appBar: AppBar(
-          title: const Text('Description Detail'),
+          title: const Text('Detail'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20),
