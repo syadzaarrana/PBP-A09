@@ -29,10 +29,17 @@ class _State extends State<SignupRegPage> {
 
   String city = "Aceh";
 
-  bool isPasswordVisible = false;
-  void togglePasswordView() {
+  bool isPassword1Visible = false;
+  void togglePassword1View() {
     setState(() {
-      isPasswordVisible = !isPasswordVisible;
+      isPassword1Visible = !isPassword1Visible;
+    });
+  }
+
+  bool isPassword2Visible = false;
+  void togglePassword2View() {
+    setState(() {
+      isPassword2Visible = !isPassword2Visible;
     });
   }
 
@@ -51,7 +58,7 @@ class _State extends State<SignupRegPage> {
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 5),
                     child: const Text(
-                      'Buat akun',
+                      'Create account',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
@@ -61,7 +68,7 @@ class _State extends State<SignupRegPage> {
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                     child: const Text(
-                      'untuk masyarakat umum',
+                      'for Regular User',
                       style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.w500,
@@ -82,7 +89,7 @@ class _State extends State<SignupRegPage> {
                               child: TextFormField(
                                 controller: _controllerName,
                                 decoration: InputDecoration(
-                                  labelText: 'Nama Lengkap',
+                                  labelText: 'Full Name',
                                   labelStyle: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -95,7 +102,7 @@ class _State extends State<SignupRegPage> {
                                     borderSide:
                                     BorderSide(color: Colors.lightGreen),
                                   ),
-                                  hintText: 'Nama Lengkap',
+                                  hintText: 'Full Name',
                                   prefixIcon: Icon(Icons.account_circle),
                                   hintStyle: TextStyle(
                                     color: Color.fromRGBO(200, 200, 200, 1),
@@ -105,7 +112,7 @@ class _State extends State<SignupRegPage> {
                                     AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Nama tidak boleh kosong";
+                                    return "Name can not be blank!";
                                   }
                                   return null;
                                 },
@@ -139,7 +146,7 @@ class _State extends State<SignupRegPage> {
                                     AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Email tidak boleh kosong";
+                                    return "Email can not be blank!";
                                   }
                                   return null;
                                 },
@@ -173,7 +180,7 @@ class _State extends State<SignupRegPage> {
                                     AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Username tidak boleh kosong";
+                                    return "Username can not be blank!";
                                   }
                                   return null;
                                 },
@@ -187,7 +194,7 @@ class _State extends State<SignupRegPage> {
                               ),
                               child: TextFormField(
                                 controller: _controllerPassword1,
-                                obscureText: !isPasswordVisible,
+                                obscureText: !isPassword1Visible,
                                 decoration: InputDecoration(
                                   labelText: 'Password',
                                   labelStyle: TextStyle(
@@ -203,10 +210,10 @@ class _State extends State<SignupRegPage> {
                                   suffixIcon: IconButton(
                                     color: Color.fromRGBO(200, 200, 200, 1),
                                     splashRadius: 1,
-                                    icon: Icon(isPasswordVisible
+                                    icon: Icon(isPassword1Visible
                                         ? Icons.visibility_outlined
                                         : Icons.visibility_off_outlined),
-                                    onPressed: togglePasswordView,
+                                    onPressed: togglePassword1View,
                                   ),
                                   hintStyle: TextStyle(
                                     color: Color.fromRGBO(200, 200, 200, 1),
@@ -216,7 +223,7 @@ class _State extends State<SignupRegPage> {
                                     AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Password tidak boleh kosong";
+                                    return "Password can not be blank!";
                                   }
                                   return null;
                                 },
@@ -230,9 +237,9 @@ class _State extends State<SignupRegPage> {
                               ),
                               child: TextFormField(
                                 controller: _controllerPassword2,
-                                obscureText: !isPasswordVisible,
+                                obscureText: !isPassword2Visible,
                                 decoration: InputDecoration(
-                                  labelText: 'Konfirmasi Password',
+                                  labelText: 'Confirm Password',
                                   labelStyle: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -241,15 +248,15 @@ class _State extends State<SignupRegPage> {
                                     borderSide:
                                     BorderSide(color: Colors.green),
                                   ),
-                                  hintText: 'Konfirmasi Password',
+                                  hintText: 'Confirm Password',
                                   prefixIcon: Icon(Icons.lock),
                                   suffixIcon: IconButton(
                                     color: Color.fromRGBO(200, 200, 200, 1),
                                     splashRadius: 1,
-                                    icon: Icon(isPasswordVisible
+                                    icon: Icon(isPassword2Visible
                                         ? Icons.visibility_outlined
                                         : Icons.visibility_off_outlined),
-                                    onPressed: togglePasswordView,
+                                    onPressed: togglePassword2View,
                                   ),
                                   hintStyle: TextStyle(
                                     color: Color.fromRGBO(200, 200, 200, 1),
@@ -259,7 +266,7 @@ class _State extends State<SignupRegPage> {
                                     AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Password tidak boleh kosong";
+                                    return "Password can not be blank!";
                                   }
                                   return null;
                                 },
@@ -276,7 +283,7 @@ class _State extends State<SignupRegPage> {
                                  keyboardType: TextInputType.number,
                                 controller: _controllerAge,
                                 decoration: InputDecoration(
-                                  labelText: 'Umur',
+                                  labelText: 'Age',
                                   labelStyle: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -285,7 +292,7 @@ class _State extends State<SignupRegPage> {
                                     borderSide:
                                     BorderSide(color: Colors.green),
                                   ),
-                                  hintText: 'Umur',
+                                  hintText: 'Age',
                                   prefixIcon: Icon(Icons.group),
                                   hintStyle: TextStyle(
                                     color: Color.fromRGBO(200, 200, 200, 1),
@@ -295,10 +302,10 @@ class _State extends State<SignupRegPage> {
                                 AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Umur harus berupa angka!";
+                                    return "Age must be a number!";
                                   }
                                   else if (!isInRange(value) ){
-                                    return 'Umur di antara 13-100';
+                                    return 'Age must be between 13 to 100!';
                                   }
                                   return null;
                                 },
@@ -309,13 +316,13 @@ class _State extends State<SignupRegPage> {
                             SizedBox(height: 20),
                             Column(
                               children: [
-                                const Text("Jenis Kelamin: ",
+                                const Text("Gender: ",
                                   style: TextStyle(
                                       fontSize: 15,
                                   ),),
                                 RadioListTile(
                                   dense: true,
-                                  title: Text("Pria",
+                                  title: Text("Man",
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: Color.fromRGBO(90,90,90,1),
@@ -331,7 +338,7 @@ class _State extends State<SignupRegPage> {
                                 ),
                                 RadioListTile(
                                   dense: true,
-                                  title: Text("Wanita",
+                                  title: Text("Woman",
                                     style: TextStyle(
                                       fontSize: 15,
                                       color: Color.fromRGBO(90,90,90,1),
@@ -346,7 +353,7 @@ class _State extends State<SignupRegPage> {
                                   },
                                 ),
                                 RadioListTile(
-                                  title: Text("Tidak ingin memberi tahu",
+                                  title: Text("Rather not say",
                                     style: TextStyle(
                                       fontSize: 15,
                                       color: Color.fromRGBO(90,90,90,1),
@@ -373,10 +380,10 @@ class _State extends State<SignupRegPage> {
                                 // ),
                                 SizedBox(height: 0),
                                 DropdownButtonFormField(
-                                  hint: Text('Domisili'),
+                                  hint: Text('Domicile (Province)'),
                                   decoration: InputDecoration(
                                     // filled: true,
-                                    labelText: 'Domisili',
+                                    labelText: 'Domicile',
                                     labelStyle: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 15,
@@ -426,8 +433,6 @@ class _State extends State<SignupRegPage> {
 
                                       const url = "https://wazzt.up.railway.app/authentication/signup_reg/";
 
-
-
                                       final response =
                                           await request.signup(url, {
                                             'name' : _controllerName.text,
@@ -453,8 +458,6 @@ class _State extends State<SignupRegPage> {
                                     } else {
                                       print("tidak valid");
                                     }
-
-
                                   },
                                   child: Text("Sign Up"),
                                 ))
@@ -462,10 +465,10 @@ class _State extends State<SignupRegPage> {
                         ))),
                 Row(
                   children: <Widget>[
-                    const Text('Sudah punya akun?'),
+                    const Text('Have an account?'),
                     TextButton(
                       child: const Text(
-                        'Login di sini',
+                        'Login here',
                       ),
                       onPressed: () {
                         //signup screen
@@ -489,7 +492,7 @@ class _State extends State<SignupRegPage> {
 showAlertDialog(BuildContext context, String warning) {
   // set up the button
   Widget okButton = TextButton(
-    child: Text("Coba Lagi"),
+    child: Text("Close"),
     onPressed: () {
       Navigator.pop(context);
     },
@@ -497,7 +500,7 @@ showAlertDialog(BuildContext context, String warning) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Gagal!"),
+    title: Text("Error!"),
     content: Text(warning),
     actions: [
       okButton,
@@ -527,8 +530,8 @@ showAlertDialog2(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Selamat!"),
-    content: Text("Anda berhasil sign up!"),
+    title: Text("Great!"),
+    content: Text("You have successfully signed up!"),
     actions: [
       okButton,
     ],
