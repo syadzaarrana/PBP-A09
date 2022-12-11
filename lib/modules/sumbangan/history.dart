@@ -35,7 +35,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 if (snapshot.data!.length == 0) {
                   return const Center(
                     child: Text(
-                      "Belum ada donasi",
+                      "No Donation",
                       style: TextStyle(color: Colors.black, fontSize: 20),
                     ),
                   );
@@ -50,11 +50,11 @@ class _HistoryPageState extends State<HistoryPage> {
                               source: dataSource(snapshot.data),
                               header: const Text('History'),
                               columns: const [
-                                DataColumn(label: Text('Tanggal')),
-                                DataColumn(label: Text('Bank Sampah')),
-                                DataColumn(label: Text('Jenis Sampah')),
-                                DataColumn(label: Text('Berat Sampah')),
-                                DataColumn(label: Text('Poin')),
+                                DataColumn(label: Text('Date')),
+                                DataColumn(label: Text('Waste Bank')),
+                                DataColumn(label: Text('Waste Type')),
+                                DataColumn(label: Text('Waste Weight')),
+                                DataColumn(label: Text('Point')),
                               ],
                               showCheckboxColumn: false,
                             ),
