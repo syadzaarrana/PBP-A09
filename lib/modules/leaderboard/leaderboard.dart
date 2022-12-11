@@ -46,15 +46,18 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
 
+                          children: [
                             PaginatedDataTable(
+                              arrowHeadColor: Colors.green,
                               source: dataSource(snapshot.data),
-                              header: const Text('Leaderboard'),
+                              header: const Center(child: Text('Leaderboard', style: TextStyle(fontSize: 28.0,color: Colors.lightGreen, fontWeight: FontWeight.bold)),),
+                              columnSpacing: 100,
+                              horizontalMargin: 60,
                               columns: const [
-                                DataColumn(label: Text('Nama')),
-                                DataColumn(label: Text('Domisili')),
-                                DataColumn(label: Text('Berat')),
+                                DataColumn(label: Text('Nama', style: TextStyle(color: Colors.lightGreen),)),
+                                DataColumn(label: Text('Domisili', style: TextStyle(color: Colors.lightGreen),)),
+                                DataColumn(label: Text('Berat', style: TextStyle(color: Colors.lightGreen),)),
                               ],
                               showCheckboxColumn: false,
                             ),
