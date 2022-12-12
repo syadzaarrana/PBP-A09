@@ -3,12 +3,15 @@
 //     final forum = forumFromJson(jsonString);
 
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 List<Forum> forumFromJson(String str) =>
     List<Forum>.from(json.decode(str).map((x) => Forum.fromJson(x)));
 
 String forumToJson(List<Forum> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+var formatter = new DateFormat('MMM d, yyyy');
 
 class Forum {
   Forum({
@@ -37,27 +40,32 @@ class Forum {
 class Fields {
   Fields({
     required this.author,
+    required this.username,
     required this.title,
     required this.body,
+    required this.adminAnswer,
     required this.createdAt,
   });
 
   int author;
+  String username;
   String title;
   String body;
-  DateTime createdAt;
+  String adminAnswer;
+  String createdAt;
 
   factory Fields.fromJson(Map<String, dynamic> json) => Fields(
         author: json["author"],
+        username: json["username"],
         title: json["title"],
         body: json["body"],
-        createdAt: DateTime.parse(json["created_at"]),
+        adminAnswer: json["adminAnswer"],
+        createdAt: formatter.format(DateTime.parse(json["created_at"])),
       );
 
   Map<String, dynamic> toJson() => {
         "author": author,
         "title": title,
         "body": body,
-        "created_at": createdAt.toIso8601String(),
       };
 }
