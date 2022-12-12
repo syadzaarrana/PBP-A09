@@ -27,8 +27,14 @@ import 'dart:convert';
 // }
 
 Future<User> fetchUser(int id) async {
+<<<<<<< HEAD
+  var url = Uri.parse("https://wazzt.up.railway.app/for_profile/flutter/" +
+      id.toString() +
+      "/");
+=======
   var url = Uri.parse(
       "http://wazzt.up.railway.app/for_profile/flutter/" + id.toString() + "/");
+>>>>>>> 936f3a2908bb5aa391b23ca56530214fa20cb72e
   // "https://wazzt.up.railway.app/for_profile/flutter/1"
   // "http://127.0.0.1:8000/for_profile/flutter/"
   var response = await http.get(
@@ -41,15 +47,16 @@ Future<User> fetchUser(int id) async {
   );
   print("masuk fetch");
   print(id);
-  print(response);
+  // print(response);
 
   var user = jsonDecode(utf8.decode(response.bodyBytes));
-  print('dibawah ini user:');
-  print(user);
-  print("tes bawah ini");
-  print(User.fromJson(user));
-  print("bawah ini kating");
-  print(jsonDecode(response.body));
+  // print('dibawah ini user:');
+  // print(user);
+  // print("tes bawah ini");
+  // print(User.fromJson(user));
+  // print("bawah ini kating");
+  // print(jsonDecode(response.body));
+  // print(User.fromJson(jsonDecode(response.body)));
   return User.fromJson(jsonDecode(response.body));
 }
 
