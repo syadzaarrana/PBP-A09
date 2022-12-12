@@ -223,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     decoration: InputDecoration(
-                        labelText: 'Search name',
+                        labelText: 'Search name/city',
                         hintStyle: TextStyle(color: Colors.green),
                         suffixIcon: Icon(Icons.search)),
                     cursorColor: Colors.green,
@@ -241,6 +241,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
                             return snapshot.data![index].name
+                                .toLowerCase()
+                                .contains(searchString)
+                                || snapshot.data![index].city
                                 .toLowerCase()
                                 .contains(searchString)
                                 ? ListTile(
@@ -308,9 +311,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                 : Container();
                           },
                           separatorBuilder: (BuildContext context, int index) {
-                            return snapshot.data![index].name
+                            return snapshot.data![index].city
                                 .toLowerCase()
                                 .contains(searchString)
+                                || snapshot.data![index].city
+                                    .toLowerCase()
+                                    .contains(searchString)
                                 ? Divider()
                                 : Container();
                           },
