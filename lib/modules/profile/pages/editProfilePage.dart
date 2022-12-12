@@ -347,8 +347,9 @@ class _EditProfilePage extends State<EditProfilePage> {
                                       final response = await http.post(
                                           Uri.parse(
                                               "https://wazzt.up.railway.app/for_profile/edit_reg_flutter/" +
-                                                  idPemilik.toString()),
+                                                  idPemilik.toString() + "/"),
                                           headers: <String, String>{
+                                            "Access-Control-Allow-Origin": "*",
                                             'Content-Type': 'application/json',
                                           },
                                           body: jsonEncode(<String, dynamic>{
@@ -360,6 +361,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                                             'gender': gender,
                                             'city': city,
                                           }));
+                                      print(request.id);
                                       print(response.body);
                                       Map<String, dynamic> data =
                                           jsonDecode(response.body);
