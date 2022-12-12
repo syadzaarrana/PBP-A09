@@ -171,14 +171,11 @@ class _MyFormPageState extends State<MyFormPage> {
                       shrinkWrap: true,
                       children: <Widget>[
                         Center(
-                            child: const Text(
-                                'You have successfully added a question')),
+                            child: const Text('Successfully added a question')),
                         SizedBox(height: 20),
                         ElevatedButton(
                           child: Text('Go Back to FAQ'),
                           style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 120.0, vertical: 25.0),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                               primary: Color.fromARGB(255, 14, 152, 104)),
