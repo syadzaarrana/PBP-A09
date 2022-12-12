@@ -15,7 +15,7 @@
 Link: https://wazzt.up.railway.app/
 
 ## APK
-[![Build status](https://build.appcenter.ms/v0.1/apps/c586f801-5b5b-470d-ac39-2cdd09bb4dea/branches/main/badge)]
+[![Build status](https://build.appcenter.ms/v0.1/apps/c586f801-5b5b-470d-ac39-2cdd09bb4dea/branches/main/badge)](https://appcenter.ms)
 
 ## Penjelasan Aplikasi
 ### Judul Aplikasi:	
