@@ -246,7 +246,8 @@ class _MyFormPageState extends State<UploadForm> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const MyApp()),
+                                                const MyHomePage(
+                                                    title: "Wazzt")),
                                       );
                                     },
                                     child: const Text('OK'),
