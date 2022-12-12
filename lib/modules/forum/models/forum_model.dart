@@ -43,6 +43,7 @@ class Fields {
     required this.username,
     required this.title,
     required this.body,
+    required this.adminAnswer,
     required this.createdAt,
   });
 
@@ -50,6 +51,7 @@ class Fields {
   String username;
   String title;
   String body;
+  String adminAnswer;
   String createdAt;
 
   factory Fields.fromJson(Map<String, dynamic> json) => Fields(
@@ -57,6 +59,7 @@ class Fields {
         username: json["username"],
         title: json["title"],
         body: json["body"],
+        adminAnswer: json["adminAnswer"],
         createdAt: formatter.format(DateTime.parse(json["created_at"])),
       );
 
