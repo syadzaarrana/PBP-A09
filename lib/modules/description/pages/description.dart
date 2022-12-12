@@ -6,11 +6,13 @@ import 'package:wazzt/modules/sumbangan/sumbangan.dart';
 class DescriptionPage extends StatefulWidget {
   DescriptionPage(
       {super.key,
+      required this.regularUser,
       required this.id,
       required this.name,
       required this.city,
       required this.email});
 
+  final bool regularUser;
   final int id;
   final String name;
   final String city;
@@ -50,22 +52,25 @@ class _DescriptionPageState extends State<DescriptionPage> {
                       title: Text(widget.name),
                       subtitle: Text("${widget.city} - ${widget.email}"),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        TextButton(
-                          child: const Text('Donate Waste'),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BuatSumbanganPage(
-                                      id_bank_sampah: widget.id),
-                                ));
-                          },
-                        ),
-                        const SizedBox(width: 8),
-                      ],
+                    Visibility(
+                      visible: widget.regularUser,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          TextButton(
+                            child: const Text('Donate Waste'),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BuatSumbanganPage(
+                                        id_bank_sampah: widget.id),
+                                  ));
+                            },
+                          ),
+                          const SizedBox(width: 8),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 8),
                   ],
