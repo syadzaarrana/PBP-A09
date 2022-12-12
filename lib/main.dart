@@ -122,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   child: Center(
                     child: const Text(
-                      "Selamat datang di Wazzt!\nAplikasi bank sampah dengan harapan dapat mengatasi permasalahan sampah di Indonesia dengan memotivasi masyarakat untuk memilah sampah.",
+                      "Welcome to Wazzt!\nA waste bank application with hope can be solving the waste problem in Indonesia by motivating people to sort waste.",
                       style: TextStyle(
                           height: 2.0,
                           color: Colors.black,
@@ -153,13 +153,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        "Permasalahan sampah di Indonesia yang semakin buruk. Data menunjukkan, bahwa setiap tahunnya dihasilkan 2.12 miliar ton sampah, yang 33% darinya tidak diolah dengan baik dan mengganggu lingkungan. Banyak hewan-hewan yang terganggu lingkungan hidupnya karena sampah, yang mengakibatkan kematian bagi hewan-hewan tersebut. Sampah-sampah yang menumpuk pada udara terbuka dan tidak diolah dengan baik menghasilkan gas metana yang merupakan salah satu gas yang dapat menjadi salah satu faktor terjadinya perubahan iklim yang ekstrim sehingga berdampak juga terhadap pemanasan global."
-                        "Oleh karena itu, Wazzt hadir dengan menyediakan sistem point reward dan leaderboard yang dapat menjadi motivasi masyrakat untuk ikut dalam pengelolaan sampah yang lebih baik.",
+                        "The waste problem in Indonesia is getting worse. Data shows that every year 2.12 billion tons of waste are generated, of which 33% is not correctly processed and disrupts the environment. Many animals whose environment is disrupted because of garbage, which results in death for these animals. Waste that accumulates in the open air and is not treated properly produces methane gas, a gas that can be a factor in extreme climate change, which also has an impact on global warming."
+                      "Therefore, Wazzt is here to provide a point reward system and a leaderboard that can motivate people to participate in better waste management.",
                         style: TextStyle(color: Colors.black, fontSize: 14.0),
                         textAlign: TextAlign.left,
                       ),
                       Text(
-                        "Visi",
+                        "Vision",
                         style: TextStyle(
                             height: 2.0,
                             color: Colors.black,
@@ -168,12 +168,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         textAlign: TextAlign.left,
                       ),
                       Text(
-                        "Menjadikan Wazzt sebagai wadah pembelajaran untuk masyarakat yang peduli akan lingkungan dan mewujudkan lingkungan yang bersih dari sampah.",
+                        "Making Wazzt a learning platform for people who care about the environment and creating a clean environment from waste.",
                         style: TextStyle(color: Colors.black, fontSize: 14.0),
                         textAlign: TextAlign.left,
                       ),
                       Text(
-                        "Misi",
+                        "Mision",
                         style: TextStyle(
                             height: 2.0,
                             color: Colors.black,
@@ -182,19 +182,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        "⚈Meningkatkan peran bank sampah agar bermanfaat bagi masyarakat",
+                        "⚈Increasing the role of waste banks to benefit the community",
                         style: TextStyle(
                             height: 1.2, color: Colors.black, fontSize: 14.0),
                         textAlign: TextAlign.left,
                       ),
                       Text(
-                        "⚈Memberdayakan masyarakat dalam kemandirian pengelolaan sampah",
+                        "⚈Empowering the community in independent waste management",
                         style: TextStyle(
                             height: 1.2, color: Colors.black, fontSize: 14.0),
                         textAlign: TextAlign.left,
                       ),
                       Text(
-                        "⚈Menambah nilai guna dan ekonomi dari sampah",
+                        "⚈Add value to the use and economy of waste",
                         style: TextStyle(
                             height: 1.2, color: Colors.black, fontSize: 14.0),
                         textAlign: TextAlign.left,
@@ -204,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Center(
                   child: Text(
-                    "Daftar Bank Sampah",
+                    "List Waste Bank",
                     style: TextStyle(
                         height: 1.2,
                         color: Colors.lightGreen,
@@ -241,76 +241,76 @@ class _MyHomePageState extends State<MyHomePage> {
                           itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
                             return snapshot.data![index].name
-                                    .toLowerCase()
-                                    .contains(searchString)
+                                .toLowerCase()
+                                .contains(searchString)
                                 ? ListTile(
-                                    title: Text(
-                                      '${snapshot.data?[index].name}',
+                                title: Text(
+                                  '${snapshot.data?[index].name}',
+                                  style: const TextStyle(
+                                    color: Colors.lightGreen,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                subtitle: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'City: ${snapshot.data?[index].city}',
                                       style: const TextStyle(
-                                        color: Colors.lightGreen,
-                                        fontSize: 18.0,
+                                        fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    subtitle: Column(
-                                      children: <Widget>[
-                                        Text(
-                                          'Kota: ${snapshot.data?[index].city}',
-                                          style: const TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Alamat: ${snapshot.data?[index].address}',
-                                          style: const TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        TextButton(
-                                          child: const Text(
-                                            "See Description",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.lightGreen)),
-                                          onPressed: () {
-                                            if (snapshot.hasData) {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DescriptionPage(
-                                                          regularUser: request
-                                                              .is_regular,
-                                                          id: snapshot
-                                                              .data![index].pk,
-                                                          name: snapshot
-                                                              .data![index]
-                                                              .name,
-                                                          city: snapshot
-                                                              .data![index]
-                                                              .city,
-                                                          email: snapshot
-                                                              .data![index]
-                                                              .email,
-                                                        )),
-                                              );
-                                            }
-                                          },
-                                        )
-                                      ],
-                                    ))
+                                    Text(
+                                      'Address: ${snapshot.data?[index].address}',
+                                      style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextButton(
+                                      child: const Text(
+                                        "See Description",
+                                        style:
+                                        TextStyle(color: Colors.white),
+                                      ),
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.lightGreen)),
+                                      onPressed: () {
+                                        if (snapshot.hasData) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DescriptionPage(
+                                                      regularUser: request
+                                                          .is_regular,
+                                                      id: snapshot
+                                                          .data![index].pk,
+                                                      name: snapshot
+                                                          .data![index]
+                                                          .name,
+                                                      city: snapshot
+                                                          .data![index]
+                                                          .city,
+                                                      email: snapshot
+                                                          .data![index]
+                                                          .email,
+                                                    )),
+                                          );
+                                        }
+                                      },
+                                    )
+                                  ],
+                                ))
                                 : Container();
                           },
                           separatorBuilder: (BuildContext context, int index) {
                             return snapshot.data![index].name
-                                    .toLowerCase()
-                                    .contains(searchString)
+                                .toLowerCase()
+                                .contains(searchString)
                                 ? Divider()
                                 : Container();
                           },
