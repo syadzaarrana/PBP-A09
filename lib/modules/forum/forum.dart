@@ -1,4 +1,5 @@
 import 'package:wazzt/modules/forum/addQuestion.dart';
+import 'package:wazzt/modules/forum/answer.dart';
 import 'package:wazzt/modules/forum/utils/fetch.dart';
 import 'package:wazzt/modules/forum/models/forum_model.dart';
 import 'package:wazzt/widget/Drawer.dart';
@@ -140,7 +141,14 @@ class _ForumPageState extends State<ForumPage> {
                                               BorderRadius.circular(10.0)),
                                       primary:
                                           Color.fromARGB(255, 102, 243, 193)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ForumDetail(
+                                              forum: snapshot.data![index])),
+                                    );
+                                  },
                                 ),
                               ],
                             )),

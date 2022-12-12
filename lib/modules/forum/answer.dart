@@ -4,22 +4,35 @@ import 'package:wazzt/modules/forum/models/forum_model.dart';
 import 'package:wazzt/widget/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:wazzt/modules/forum/forum.dart';
 
-class AnswerPage extends StatefulWidget {
-  const AnswerPage({super.key});
-  @override
-  _AnswerState createState() => _AnswerState();
-}
+class ForumDetail extends StatelessWidget {
+  const ForumDetail({super.key, required this.forum});
 
-class _AnswerState extends State<AnswerPage> {
+  final Forum forum;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin Response FAQ'),
+        title: const Text('Admin Response'),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ForumPage(),
+                ));
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 20,
+            color: Colors.white,
+          ),
+        ),
       ),
-      drawer: buildDrawer(context),
-      body: Container(
+      body: Stack(children: [
+        Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.bottomLeft,
@@ -30,123 +43,102 @@ class _AnswerState extends State<AnswerPage> {
               ],
             ),
           ),
+        ),
+        Card(
+          margin: EdgeInsets.all(36),
+          elevation: 20,
+          color: Color.fromARGB(255, 117, 210, 177),
+          shape: RoundedRectangleBorder(
+              side: BorderSide(color: Color.fromARGB(255, 1, 36, 70), width: 3),
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          shadowColor: Color.fromARGB(255, 159, 231, 186),
           child: Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "FAQ Question:",
-                style: const TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              Image.network(
-                  "https://cdn-icons-png.flaticon.com/128/3649/3649770.png",
-                  height: 48,
-                  fit: BoxFit.fill),
-              SizedBox(
-                height: 25,
-              ),
-              FutureBuilder(
-                future: fetch(),
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.data == null) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else {
-                    if (!snapshot.hasData) {
-                      return Column(
-                        children: const [
-                          Text(
-                            "There is no question in FAQ",
-                            style: TextStyle(
-                                color: Color(0xff59A5D8), fontSize: 20),
-                          ),
-                          SizedBox(height: 8),
-                        ],
-                      );
-                    } else {
-                      return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (_, index) => GFAccordion(
-                            titleChild: Row(
-                              children: [
-                                Image.network(
-                                    "https://cdn-icons-png.flaticon.com/512/1179/1179267.png",
-                                    height: 35,
-                                    fit: BoxFit.fill),
-                                Text(
-                                  "${snapshot.data![index].fields.title}",
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            contentChild: Column(
-                              children: [
-                                Text(
-                                  "Authored by: " +
-                                      "${snapshot.data![index].fields.username}" +
-                                      " ",
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "Created at: " +
-                                      "${snapshot.data![index].fields.createdAt}",
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "${snapshot.data![index].fields.body}",
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                  ),
-                                ),
-                                ElevatedButton(
-                                  child: Text('Admin Response'),
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      primary:
-                                          Color.fromARGB(255, 102, 243, 193)),
-                                  onPressed: () {},
-                                ),
-                              ],
+            children: <Widget>[
+              Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Text(
+                    forum.fields.title,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 30),
+                  ListTile(
+                    leading: Image.network(
+                        "https://cdn-icons-png.flaticon.com/512/4403/4403512.png",
+                        height: 30,
+                        fit: BoxFit.fill),
+                    title: const Text(
+                      'Question: ',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      forum.fields.body,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Image.network(
+                        "https://cdn-icons-png.flaticon.com/512/2068/2068627.png",
+                        height: 30,
+                        fit: BoxFit.fill),
+                    title: const Text(
+                      'Asked by: ',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      forum.fields.username,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    dense: true,
+                  ),
+                  ListTile(
+                      title: const Padding(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          'Admin Answer: ',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      dense: true,
+                      subtitle: forum.fields.adminAnswer == ""
+                          ? Text(
+                              "There is no response",
+                              style: const TextStyle(
+                                  fontSize: 25, color: Colors.black),
+                            )
+                          : Text(
+                              forum.fields.adminAnswer,
+                              style: const TextStyle(
+                                  fontSize: 18, color: Colors.black),
                             )),
-                      );
-                    }
-                  }
+                ],
+              ),
+              const Spacer(),
+              ElevatedButton(
+                child: Text('Go Back'),
+                style: ElevatedButton.styleFrom(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 70.0, vertical: 20.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    primary: Color.fromARGB(255, 102, 243, 193)),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ForumPage()),
+                  );
                 },
               ),
+              const SizedBox(height: 30),
             ],
-          )),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MyFormPage(),
-              )); // Add your onPressed code here!
-        },
-        label: const Text('Add your Question to FAQ'),
-        icon: const Icon(Icons.add),
-        backgroundColor: Color.fromARGB(255, 102, 243, 193),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          ),
+        ),
+      ]),
     );
   }
 }
