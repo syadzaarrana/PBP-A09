@@ -241,9 +241,10 @@ class _EditBankPage extends State<EditBankPage> {
                                       _bankEditFormKey.currentState!.save();
                                       final response = await http.post(
                                           Uri.parse(
-                                              "https://wazzt.up.railway.app/for_profile/edit_bank_flutter" +
-                                                  idPemilik.toString()),
+                                              "https://wazzt.up.railway.app/for_profile/edit_bank_flutter/" +
+                                                  idPemilik.toString() + "/"),
                                           headers: <String, String>{
+                                            "Access-Control-Allow-Origin": "*",
                                             'Content-Type':
                                                 'application/json; charset=UTF-8',
                                           },
@@ -251,8 +252,9 @@ class _EditBankPage extends State<EditBankPage> {
                                             'name': _controllerName.text,
                                             'email': _controllerEmail.text,
                                             'city': city,
-                                            'address':_controllerAddress,
+                                            'address':_controllerAddress.text,
                                           }));
+                                      print(response.body);
                                       Map<String, dynamic> data =
                                           jsonDecode(response.body);
                                       print(data);

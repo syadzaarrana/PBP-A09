@@ -322,7 +322,7 @@ class _State extends State<SignupRegPage> {
                                   ),),
                                 RadioListTile(
                                   dense: true,
-                                  title: Text("Man",
+                                  title: Text("Male",
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: Color.fromRGBO(90,90,90,1),
@@ -338,7 +338,7 @@ class _State extends State<SignupRegPage> {
                                 ),
                                 RadioListTile(
                                   dense: true,
-                                  title: Text("Woman",
+                                  title: Text("Female",
                                     style: TextStyle(
                                       fontSize: 15,
                                       color: Color.fromRGBO(90,90,90,1),
