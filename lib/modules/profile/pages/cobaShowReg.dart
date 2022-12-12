@@ -9,6 +9,7 @@ import 'dart:core';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../../../main.dart';
 import '../../account_auth/utils/cookie_request.dart';
 import '../utils/fetch.dart';
 import 'editProfilePage.dart';
@@ -31,7 +32,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
     int id = request.id;
     Future<User> futureUser = fetchUser(id);
     return Scaffold(
-      // drawer: NavigationDrawerWidget(),
+      drawer: buildDrawer(context),
       appBar: AppBar(
         // The title text which will be shown on the action bar
         title: Text("Profile"),
@@ -43,22 +44,27 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
             Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(15.0),
                   child: Text(
                     "Your Profile",
                     style: TextStyle(
-                        color: Colors.lightGreen,
+                        color: Colors.black,
                         fontSize: 30,
                         fontWeight: FontWeight.w500,
-                        fontFamily: 'Pacifico - Regular'),
+                        fontFamily: 'Pacifico'),
                   ),
                 )),
+            SizedBox(height: 10,),
 
-            // CircleAvatar(
-            //     radius: 50.0,
-            //     backgroundImage: AssetImage('assets/img/user_icon.png'),
-            //   ),
+            CircleAvatar(
+                radius:50.0,
+                backgroundColor: Colors.white,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50.0),
+                  child: Image.asset('assets/img/user_icon.png')),
+              ),
+            SizedBox(height: 30,),
 
             FractionallySizedBox(
               widthFactor: 0.7,
@@ -80,9 +86,9 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                     Container(
                       //margin: EdgeInsets.only(bottom: 5.0),
                       child: Text(
-                        "Nama :",
+                        "Name :",
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.teal,
                         ),
@@ -99,16 +105,15 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                         child: FutureBuilder<User>(
                           future: fetchUser(id),
                           builder: (context, AsyncSnapshot snapshot) {
-                            print(snapshot);
                             if (snapshot.hasData) {
                               //id = snapshot.data.id;
                               print('data ${snapshot.data!.name.toString()}');
                               return Text(
                                 snapshot.data!.name.toString(),
                                 style: TextStyle(
-                                  color: Colors.teal,
+                                  color: Colors.white,
                                   fontFamily: 'Source Sans Pro',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0,
                                 ),
                               );
                             } else if (snapshot.hasError) {
@@ -124,7 +129,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                       child: Text(
                         "Username :",
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.teal,
                         ),
@@ -146,9 +151,9 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                               return Text(
                                 snapshot.data!.username.toString(),
                                 style: TextStyle(
-                                  color: Colors.teal,
+                                  color: Colors.white,
                                   fontFamily: 'Source Sans Pro',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0,
                                 ),
                               );
                             } else if (snapshot.hasError) {
@@ -164,7 +169,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                       child: Text(
                         "Email :",
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.teal,
                         ),
@@ -185,9 +190,9 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                               return Text(
                                 snapshot.data!.email.toString(),
                                 style: TextStyle(
-                                    color: Colors.teal,
+                                    color: Colors.white,
                                     fontFamily: 'Source Sans Pro',
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               );
                             } else if (snapshot.hasError) {
                               return Text("${snapshot.error}");
@@ -200,9 +205,9 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                     Container(
                       margin: EdgeInsets.only(top: 5.0),
                       child: Text(
-                        "Umur :",
+                        "Age :",
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.teal,
                         ),
@@ -241,7 +246,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                       child: Text(
                         "Gender :",
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.teal,
                         ),
@@ -278,9 +283,9 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                     Container(
                       margin: EdgeInsets.only(top: 5.0),
                       child: Text(
-                        "Kota :",
+                        "City :",
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.teal,
                         ),
@@ -318,6 +323,7 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                 ),
               ),
             ),
+            SizedBox(height: 30,),
             FractionallySizedBox(
               widthFactor: 0.7,
               child: Container(
@@ -339,6 +345,37 @@ class _ShowProfilePageState extends State<ShowProfilePage> {
                   ),
                   child: Text(
                     "Edit",
+                    style: TextStyle(
+                      fontFamily: 'Source Sans Pro',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            FractionallySizedBox(
+              widthFactor: 0.7,
+              child: Container(
+                margin: EdgeInsets.only(top: 10.0),
+                color: Colors.white,
+                child: MaterialButton(
+                  minWidth: double.infinity,
+                  height: 60,
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(builder: (context) {
+                      return MyHomePage(title: "");
+                    }));
+                  },
+                  color: Color.fromARGB(255, 165, 223, 153),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Text(
+                    "Back",
                     style: TextStyle(
                       fontFamily: 'Source Sans Pro',
                       fontWeight: FontWeight.w600,

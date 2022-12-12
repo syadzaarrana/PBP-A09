@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:wazzt/modules/account_auth/models/auth_models.dart';
 import '../../../../widget/Drawer.dart';
 
 import 'dart:async';
@@ -7,58 +9,10 @@ import 'dart:core';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../../../main.dart';
+import '../../account_auth/utils/cookie_request.dart';
+import '../utils/fetch.dart';
 import 'editBankPage.dart';
-import 'editProfilePage.dart';
-
-Future<User> fetchUser(String ID) async {
-  String id = ID;
-
-  var url = "https://wazzt.up.railway.app/for_profile/show_profile/" + id;
-  try {
-    final response = await http.get(Uri.parse(url));
-    print(response);
-    print("ABC");
-    print(response.body);
-    print(url);
-    ;
-    Map<String, dynamic> data = jsonDecode(response.body);
-    print("ABC");
-    print(data);
-
-    return User.fromJson(jsonDecode(response.body));
-  } catch (error) {
-    print("error");
-    rethrow;
-  }
-}
-
-class User {
-  String name = "";
-  String email = "";
-  String city = "";
-  String address = "";
-  String id = "";
-  bool? is_bank;
-
-  User(
-      {required this.name,
-      required this.email,
-      required this.city,
-      required this.address,
-      required this.id,
-      required this.is_bank});
-
-  factory User.fromJson(Map<String, dynamic> data) {
-    return User(
-      name: data["data"]["data"]["name"],
-      email: data["data"]["data"]["email"],
-      city: data['data']['data']["city"],
-      address: data['data']['data']["address"],
-      id: data['data']['data']["id"],
-      is_bank: data["data"]["data"]["is_bank"],
-    );
-  }
-}
 
 class ShowBankPage extends StatefulWidget {
   final String id;
@@ -74,14 +28,11 @@ class ShowBankPage extends StatefulWidget {
 class _ShowBankPageState extends State<ShowBankPage> {
   @override
   Widget build(BuildContext context) {
-    // print(name + "ABC");
-    // print(email);
-    // print(address);
-    // print(city);
-    String id = widget.id;
+    final request = context.watch<CookieRequest>();
+    int id = request.id;
     Future<User> futureUser = fetchUser(id);
     return Scaffold(
-      // drawer: NavigationDrawerWidget(),
+      drawer: buildDrawer(context),
       appBar: AppBar(
         // The title text which will be shown on the action bar
         title: Text("Profile"),
@@ -93,23 +44,28 @@ class _ShowBankPageState extends State<ShowBankPage> {
             Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(15.0),
                   child: Text(
-                    "Bank Profile",
+                    "Your Profile",
                     style: TextStyle(
-                      color: Colors.lightGreen,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500,
-                    ),
+                        color: Colors.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Pacifico'),
                   ),
                 )),
-            
-            // CircleAvatar(
-            //   radius: 50.0,
-            //   backgroundImage: AssetImage('assets/img/user_icon.png'),
-            // ),
-            
+            SizedBox(height: 10,),
+
+            CircleAvatar(
+                radius:50.0,
+                backgroundColor: Colors.white,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50.0),
+                  child: Image.asset('assets/img/bank_icon.png')),
+                // backgroundImage: AssetImage('assets/img/user_icon.png'),
+              ),
+            SizedBox(height: 30,),
             FractionallySizedBox(
               widthFactor: 0.7,
               //alignment: Alignment.topCenter,
@@ -127,13 +83,12 @@ class _ShowBankPageState extends State<ShowBankPage> {
                   //mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    
                     Container(
                       //margin: EdgeInsets.only(bottom: 5.0),
                       child: Text(
-                        "Institusi :",
+                        "Institute Name :",
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.teal,
                         ),
@@ -148,16 +103,17 @@ class _ShowBankPageState extends State<ShowBankPage> {
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: FutureBuilder<User>(
-                          future: futureUser,
-                          builder: (context, snapshot) {
+                          future: fetchUser(id),
+                          builder: (context, AsyncSnapshot snapshot) {
                             if (snapshot.hasData) {
                               //id = snapshot.data.id;
+                              print('data ${snapshot.data!.name.toString()}');
                               return Text(
-                                snapshot.data!.name,
+                                snapshot.data!.name.toString(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Source Sans Pro',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0,
                                 ),
                               );
                             } else if (snapshot.hasError) {
@@ -168,13 +124,13 @@ class _ShowBankPageState extends State<ShowBankPage> {
                         ),
                       ),
                     ),
-                    
+
                     Container(
-                      //margin: EdgeInsets.only(bottom: 5.0),
+                      margin: EdgeInsets.only(top: 5.0),
                       child: Text(
                         "Email :",
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.teal,
                         ),
@@ -190,55 +146,14 @@ class _ShowBankPageState extends State<ShowBankPage> {
                         ),
                         child: FutureBuilder<User>(
                           future: futureUser,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              //id = snapshot.data.id;
-                              return Text(
-                                snapshot.data!.email,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Source Sans Pro',
-                                  fontSize: 20.0,
-                                ),
-                              );
-                            } else if (snapshot.hasError) {
-                              return Text("${snapshot.error}");
-                            }
-                            return CircularProgressIndicator();
-                          },
-                        ),
-                      ),
-                    ),
-                    
-                    Container(
-                      margin: EdgeInsets.only(top: 5.0),
-                      child: Text(
-                        "Domisili :",
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.teal,
-                        ),
-                      ),
-                    ),
-                    FractionallySizedBox(
-                      widthFactor: 0.9,
-                      child: Container(
-                        padding: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 165, 223, 153),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: FutureBuilder<User>(
-                          future: futureUser,
-                          builder: (context, snapshot) {
+                          builder: (context, AsyncSnapshot snapshot) {
                             if (snapshot.hasData) {
                               return Text(
-                                snapshot.data!.city,
+                                snapshot.data!.email.toString(),
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Source Sans Pro',
-                                    fontSize: 20.0),
+                                    fontSize: 15.0),
                               );
                             } else if (snapshot.hasError) {
                               return Text("${snapshot.error}");
@@ -248,13 +163,13 @@ class _ShowBankPageState extends State<ShowBankPage> {
                         ),
                       ),
                     ),
-                    
+
                     Container(
                       margin: EdgeInsets.only(top: 5.0),
                       child: Text(
-                        "Alamat :",
+                        "City :",
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.teal,
                         ),
@@ -270,10 +185,10 @@ class _ShowBankPageState extends State<ShowBankPage> {
                         ),
                         child: FutureBuilder<User>(
                           future: futureUser,
-                          builder: (context, snapshot) {
+                          builder: (context, AsyncSnapshot snapshot) {
                             if (snapshot.hasData) {
                               return Text(
-                                snapshot.data!.address,
+                                snapshot.data!.city.toString(),
                                 style: TextStyle(
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.w300,
@@ -288,11 +203,52 @@ class _ShowBankPageState extends State<ShowBankPage> {
                         ),
                       ),
                     ),
+                    Container(
+                      //margin: EdgeInsets.only(bottom: 5.0),
+                      child: Text(
+                        "Address :",
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.teal,
+                        ),
+                      ),
+                    ),
+                    FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 165, 223, 153),
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: FutureBuilder<User>(
+                          future: fetchUser(id),
+                          builder: (context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              //id = snapshot.data.id;
+                              print('data ${snapshot.data!.address.toString()}');
+                              return Text(
+                                snapshot.data!.address.toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Source Sans Pro',
+                                  fontSize: 15.0,
+                                ),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text("${snapshot.error}");
+                            }
+                            return CircularProgressIndicator();
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-            
+            SizedBox(height: 30,),
             FractionallySizedBox(
               widthFactor: 0.7,
               child: Container(
@@ -314,6 +270,37 @@ class _ShowBankPageState extends State<ShowBankPage> {
                   ),
                   child: Text(
                     "Edit",
+                    style: TextStyle(
+                      fontFamily: 'Source Sans Pro',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            FractionallySizedBox(
+              widthFactor: 0.7,
+              child: Container(
+                margin: EdgeInsets.only(top: 10.0),
+                color: Colors.white,
+                child: MaterialButton(
+                  minWidth: double.infinity,
+                  height: 60,
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(builder: (context) {
+                      return MyHomePage(title: "");
+                    }));
+                  },
+                  color: Color.fromARGB(255, 165, 223, 153),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Text(
+                    "Back",
                     style: TextStyle(
                       fontFamily: 'Source Sans Pro',
                       fontWeight: FontWeight.w600,
