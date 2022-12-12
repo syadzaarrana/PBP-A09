@@ -32,10 +32,10 @@ Maka dari itu, sebagai bentuk aksi untuk ikut berkontribusi dalam mencapai Envir
     - Sign up untuk user biasa: nama, username, umur, jenis kelamin, email, password, domisili
     - Sign up untuk user bank sampah: nama institusi, email, password, domisili, alamat lengkap
     - Logout
-2. Forum akan dikerjakan oleh Hizkia Sebastian Ginting
+2. Forum FAQ akan dikerjakan oleh Hizkia Sebastian Ginting
     - Daftar Pertanyaan
     - Form pertanyaan
-    - Form menjawab
+    - Form menjawab (oleh Admin)
 3. Profile akan dikerjakan oleh Rathina Shabur
     - Lihat profile
     - Edit profile
