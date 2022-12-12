@@ -15,7 +15,9 @@
 Link: https://wazzt.up.railway.app/
 
 ## APK
-[![Build status](https://build.appcenter.ms/v0.1/apps/c586f801-5b5b-470d-ac39-2cdd09bb4dea/branches/main/badge)](https://appcenter.ms/orgs/Wazzt/apps/Wazzt/)[![Download](https://img.shields.io/badge/appcenter-download-blueviolet)](https://install.appcenter.ms/orgs/wazzt/apps/wazzt/distribution_groups/public)
+[![Pre-Release](https://github.com/syadzaarrana/PBP-A09/actions/workflows/pre-release.yml/badge.svg)](https://github.com/D10-PBP/Proyek-Akhir-Semester/actions/workflows/pre-release.yml)
+[![Release](https://github.com/syadzaarrana/PBP-A09/actions/workflows/release.yml/badge.svg)](https://github.com/D10-PBP/Proyek-Akhir-Semester/actions/workflows/release.yml)
+[![Build status](https://build.appcenter.ms/v0.1/apps/c586f801-5b5b-470d-ac39-2cdd09bb4dea/branches/main/badge)](https://appcenter.ms)
 
 ## Penjelasan Aplikasi
 ### Judul Aplikasi:	
