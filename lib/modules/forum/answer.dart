@@ -5,34 +5,31 @@ import 'package:wazzt/widget/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
-class ForumPage extends StatefulWidget {
-  const ForumPage({super.key});
+class AnswerPage extends StatefulWidget {
+  const AnswerPage({super.key});
   @override
-  _ForumPageState createState() => _ForumPageState();
+  _AnswerState createState() => _AnswerState();
 }
 
-class _ForumPageState extends State<ForumPage> {
+class _AnswerState extends State<AnswerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Forum FAQ'),
+        title: const Text('Admin Response FAQ'),
       ),
-      resizeToAvoidBottomInset: false,
       drawer: buildDrawer(context),
       body: Container(
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Color.fromARGB(255, 166, 238, 194),
-              Color.fromARGB(255, 255, 255, 255),
-            ],
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color.fromARGB(255, 166, 238, 194),
+                Color.fromARGB(255, 255, 255, 255),
+              ],
+            ),
           ),
-        ),
-        child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
@@ -94,7 +91,6 @@ class _ForumPageState extends State<ForumPage> {
                               ],
                             ),
                             contentChild: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   "Authored by: " +
@@ -114,23 +110,10 @@ class _ForumPageState extends State<ForumPage> {
                                   ),
                                 ),
                                 Text(
-                                  "Question: ",
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
                                   "${snapshot.data![index].fields.body}",
                                   style: const TextStyle(
-                                    fontSize: 20.0,
+                                    fontSize: 14.0,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 8,
                                 ),
                                 ElevatedButton(
                                   child: Text('Admin Response'),
@@ -150,9 +133,7 @@ class _ForumPageState extends State<ForumPage> {
                 },
               ),
             ],
-          ),
-        ),
-      ),
+          )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.pushReplacement(
