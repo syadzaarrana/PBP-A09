@@ -93,7 +93,7 @@ class _State extends State<SignupPage> {
                                 ));
                               },
                               child: Text(
-                                "Buat akun sebagai Masyarakat Umum",
+                                "Create account as a Regular User",
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -146,7 +146,7 @@ class _State extends State<SignupPage> {
                                 ));
                               },
                               child: Text(
-                                "Buat akun sebagai Bank Sampah",
+                                "Create account as a Waste Bank",
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -160,10 +160,10 @@ class _State extends State<SignupPage> {
                   SizedBox(height: 30),
                   Row(
                     children: <Widget>[
-                      const Text('Sudah punya akun?'),
+                      const Text('Have an account?'),
                       TextButton(
                         child: const Text(
-                          'Login disini',
+                          'Login here',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                             shadows: <Shadow>[

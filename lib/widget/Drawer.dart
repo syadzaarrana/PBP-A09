@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wazzt/main.dart';
 import 'package:wazzt/modules/forum/forum.dart';
+import 'package:wazzt/modules/description/pages/uploadform.dart';
 
 import '../modules/account_auth/pages/login_page.dart';
 import '../modules/account_auth/utils/cookie_request.dart';
@@ -32,11 +33,15 @@ Drawer buildDrawer(BuildContext context) {
                     builder: (context) => MyHomePage(title: ""),
                   ));
             }),
-        ListTile(
-          title: const Text('Forum'),
-              onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ForumPage()),);
-              }
+      Visibility(
+        visible: _request.is_regular,
+        child:
+          ListTile(
+            title: const Text('Forum'),
+                onTap: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ForumPage()),);
+                }
+          ),
         ),
        Visibility(
           visible: _request.is_regular,
@@ -59,29 +64,54 @@ Drawer buildDrawer(BuildContext context) {
               }
         ),
         ),
-        ListTile(
-            title: const Text('Leaderboard'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const LeaderboardPage()),
-              );
-            }),
-        ListTile(
-          title: const Text('Tukar Poin'),
-          //     onTap: () {
-          //       Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListPage()),);
-          //     }
+        Visibility(
+          visible: _request.is_regular,
+          child:
+            ListTile(
+                title: const Text('Leaderboard'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LeaderboardPage()),
+                  );
+                }),
         ),
-        ListTile(
-            title: const Text('Riwayat'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HistoryPage()),
-              );
-            }),
+        Visibility(
+          visible: _request.is_regular,
+          child:
+            ListTile(
+              title: const Text('Tukar Poin'),
+              //     onTap: () {
+              //       Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListPage()),);
+              //     }
+            ),
+        ),
+        Visibility(
+          visible: _request.is_regular,
+          child:
+            ListTile(
+                title: const Text('Riwayat'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HistoryPage()),
+                  );
+                }),
+        ),
+        Visibility(
+          visible: _request.is_bank,
+          child:
+          ListTile(
+              title: const Text('Add description'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UploadForm(id: _request.id)),
+                );
+              }),
+        ),
         _request.loggedIn
             ? ListTile(
                 title: const Text('Logout'),
@@ -98,6 +128,7 @@ Drawer buildDrawer(BuildContext context) {
                         builder: (context) => LoginPage(),
                       ));
                 }),
+
       ],
     ),
   );
