@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:wazzt/main.dart';
 
 class UploadForm extends StatefulWidget {
   UploadForm({super.key, required this.id});
@@ -241,7 +242,12 @@ class _MyFormPageState extends State<UploadForm> {
                                   const SizedBox(height: 7),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pop(context);
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MyApp()),
+                                      );
                                     },
                                     child: const Text('OK'),
                                   ),
