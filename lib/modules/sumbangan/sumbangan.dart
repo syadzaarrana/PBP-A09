@@ -52,7 +52,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
     return Scaffold(
         // drawer: NavigationDrawerWidget(), belum
         appBar: AppBar(
-          title: Text("Halaman Buat Sumbangan"),
+          title: Text("Donation Page"),
         ),
         body: Form(
             key: _formKey,
@@ -69,7 +69,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                       keyboardType: TextInputType.number,
                       controller: _beratSampahField,
                       decoration: InputDecoration(
-                        labelText: 'Berat Sampah (Kg)',
+                        labelText: 'Waste Weight (Kg)',
                         labelStyle: TextStyle(
                             color: Colors.grey,
                             fontSize: 15,
@@ -89,9 +89,9 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Silakan masuki berat";
+                          return "Please enter a value";
                         } else if (!isInRange(value)) {
-                          return 'Berat di antara 1-100 Kg';
+                          return 'Waste must be between 1-100 Kg';
                         }
                       },
                     ),
@@ -102,7 +102,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                   Column(
                     children: [
                       const Text(
-                        "Jenis Sampah: ",
+                        "Waste Type: ",
                         style: TextStyle(
                           fontSize: 15,
                         ),
@@ -110,7 +110,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                       RadioListTile(
                         dense: true,
                         title: Text(
-                          "Karung",
+                          "Bag",
                           style: TextStyle(
                             fontSize: 15,
                             color: Color.fromRGBO(90, 90, 90, 1),
@@ -127,7 +127,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                       RadioListTile(
                         dense: true,
                         title: Text(
-                          "Ban",
+                          "Tire",
                           style: TextStyle(
                             fontSize: 15,
                             color: Color.fromRGBO(90, 90, 90, 1),
@@ -144,7 +144,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                       RadioListTile(
                         dense: true,
                         title: Text(
-                          "Ember",
+                          "Bucket",
                           style: TextStyle(
                             fontSize: 15,
                             color: Color.fromRGBO(90, 90, 90, 1),
@@ -161,7 +161,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                       RadioListTile(
                         dense: true,
                         title: Text(
-                          "Plastik",
+                          "Plastic",
                           style: TextStyle(
                             fontSize: 15,
                             color: Color.fromRGBO(90, 90, 90, 1),
@@ -178,7 +178,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                       RadioListTile(
                         dense: true,
                         title: Text(
-                          "Logam",
+                          "Metal",
                           style: TextStyle(
                             fontSize: 15,
                             color: Color.fromRGBO(90, 90, 90, 1),
@@ -195,7 +195,7 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
                       RadioListTile(
                         dense: true,
                         title: Text(
-                          "Botol",
+                          "Bottle",
                           style: TextStyle(
                             fontSize: 15,
                             color: Color.fromRGBO(90, 90, 90, 1),
@@ -237,14 +237,14 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
   showConfirmDialog(BuildContext context, int idUser) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text("Tidak"),
+      child: Text("No"),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
 
     Widget continueButton = TextButton(
-      child: Text("Iya"),
+      child: Text("Yes"),
       onPressed: () {
         submit(context, idUser);
         showAlertDialog(context);
@@ -253,8 +253,8 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Konfirmasi"),
-      content: Text("Apakah yakin ini donasi yang Anda ingin buat?"),
+      title: Text("Corfirmation"),
+      content: Text("Are you sure the donation is correct?"),
       actions: [
         cancelButton,
         continueButton,
@@ -282,8 +282,8 @@ class _BuatSumbanganPageState extends State<BuatSumbanganPage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Selamat!"),
-      content: Text("Donasi Berhasil Dibuat!"),
+      title: Text("Congratulations!"),
+      content: Text("Your donation has been made!"),
       actions: [
         okButton,
       ],

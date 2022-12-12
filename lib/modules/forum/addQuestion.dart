@@ -24,23 +24,37 @@ class _MyFormPageState extends State<MyFormPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Color.fromARGB(255, 166, 238, 194),
-            Color.fromARGB(255, 255, 255, 255),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Your Question Here'),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ForumPage(),
+                ));
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 20,
+            color: Colors.white,
+          ),
         ),
       ),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Tambahkan Pertanyaan Anda'),
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Color.fromARGB(255, 166, 238, 194),
+              Color.fromARGB(255, 255, 255, 255),
+            ],
+          ),
         ),
-        drawer: buildDrawer(context),
-        body: Form(
+        child: Form(
           key: _formKey,
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(8, 30, 8, 69),
@@ -48,19 +62,25 @@ class _MyFormPageState extends State<MyFormPage> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 30,
+                  ),
                   Image.network(
                       "https://cdn-icons-png.flaticon.com/512/2784/2784530.png",
                       height: 130,
                       fit: BoxFit.fill),
+                  SizedBox(
+                    height: 65,
+                  ),
                   Padding(
                     // Menggunakan padding sebesar 8 pixels
                     padding: const EdgeInsets.all(15.0),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        labelText: "Judul",
+                        labelText: "Title",
                         // Menambahkan icon agar lebih intuitif
                         icon: const Icon(
-                            IconData(0xf520, fontFamily: 'MaterialIcons')),
+                            IconData(0xe4fb, fontFamily: 'MaterialIcons')),
                         // Menambahkan circular border agar lebih rapi
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0),
@@ -81,7 +101,7 @@ class _MyFormPageState extends State<MyFormPage> {
                       // Validator sebagai validasi form
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return 'Judul Tidak Boleh Kosong!';
+                          return 'Title cannot empty!';
                         }
                         return null;
                       },
@@ -97,10 +117,10 @@ class _MyFormPageState extends State<MyFormPage> {
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
                       decoration: InputDecoration(
-                        labelText: "Pertanyaan",
+                        labelText: "Questions",
                         // Menambahkan icon agar lebih intuitif
                         icon: const Icon(
-                            IconData(0xf520, fontFamily: 'MaterialIcons')),
+                            IconData(0xf00cf, fontFamily: 'MaterialIcons')),
                         // Menambahkan circular border agar lebih rapi
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0),
@@ -118,6 +138,12 @@ class _MyFormPageState extends State<MyFormPage> {
                           _isi = value!;
                         });
                       },
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Question cannot empty!';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ],
@@ -125,71 +151,71 @@ class _MyFormPageState extends State<MyFormPage> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Dialog(
-                    backgroundColor: Color.fromARGB(255, 102, 243, 193),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    elevation: 15,
-                    child: Container(
-                      child: ListView(
-                        padding: const EdgeInsets.only(
-                            top: 20, bottom: 20, right: 50, left: 50),
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          Center(
-                              child: const Text(
-                                  'Berhasil Menambahkan Pertanyaan')),
-                          SizedBox(height: 20),
-                          ElevatedButton(
-                            child: Text('Kembali'),
-                            style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 120.0, vertical: 25.0),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                primary: Color.fromARGB(255, 14, 152, 104)),
-                            onPressed: () async {
-                              final response = await http.post(
-                                  Uri.parse(
-                                      "https://wazzt.up.railway.app/forum/addFlutter/"),
-                                  headers: <String, String>{
-                                    'Content-Type':
-                                        'application/json; charset=UTF-8'
-                                  },
-                                  body: jsonEncode(<String, dynamic>{
-                                    "author": request.id,
-                                    "title": _judul,
-                                    "body": _isi,
-                                  }));
-                              Navigator.pop(context);
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ForumPage(),
-                                  )); //
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            }
-          },
-          label: const Text('Tambahkan Pertanyaan'),
-          icon: const Icon(Icons.add),
-          backgroundColor: Color.fromARGB(255, 102, 243, 193),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  backgroundColor: Color.fromARGB(255, 102, 243, 193),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 15,
+                  child: Container(
+                    child: ListView(
+                      padding: const EdgeInsets.only(
+                          top: 20, bottom: 20, right: 50, left: 50),
+                      shrinkWrap: true,
+                      children: <Widget>[
+                        Center(
+                            child: const Text(
+                                'You have successfully added a question')),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          child: Text('Go Back to FAQ'),
+                          style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 120.0, vertical: 25.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              primary: Color.fromARGB(255, 14, 152, 104)),
+                          onPressed: () async {
+                            final response = await http.post(
+                                Uri.parse(
+                                    "https://wazzt.up.railway.app/forum/addFlutter/"),
+                                headers: <String, String>{
+                                  'Content-Type':
+                                      'application/json; charset=UTF-8'
+                                },
+                                body: jsonEncode(<String, dynamic>{
+                                  "author": request.id,
+                                  "title": _judul,
+                                  "body": _isi,
+                                }));
+                            Navigator.pop(context);
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ForumPage(),
+                                )); //
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+        },
+        label: const Text('Save your Question to FAQ'),
+        icon: const Icon(Icons.add),
+        backgroundColor: Color.fromARGB(255, 102, 243, 193),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
