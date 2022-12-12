@@ -55,9 +55,9 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                               columnSpacing: 100,
                               horizontalMargin: 60,
                               columns: const [
-                                DataColumn(label: Text('Nama', style: TextStyle(color: Colors.lightGreen),)),
-                                DataColumn(label: Text('Domisili', style: TextStyle(color: Colors.lightGreen),)),
-                                DataColumn(label: Text('Berat', style: TextStyle(color: Colors.lightGreen),)),
+                                DataColumn(label: Text('Name', style: TextStyle(color: Colors.lightGreen),)),
+                                DataColumn(label: Text('City', style: TextStyle(color: Colors.lightGreen),)),
+                                DataColumn(label: Text('Weight waste', style: TextStyle(color: Colors.lightGreen),)),
                               ],
                               showCheckboxColumn: false,
                             ),
